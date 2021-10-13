@@ -9,8 +9,6 @@
 namespace DX {
 	class CommandList {
 	public:
-		CommandList(const Device& device, const CommandAllocator& allocator, D3D12_COMMAND_LIST_TYPE type);
-
 		ID3D12GraphicsCommandList* GetCommandList() const;
 
 		void SetResourceBarrier(ResourceBarrier& resourcebarrier);
@@ -22,6 +20,31 @@ namespace DX {
 		void Close();
 
 	protected:
+		CommandList(const Device& device, const CommandAllocator& allocator, D3D12_COMMAND_LIST_TYPE type);
+
 		ComPtr<ID3D12GraphicsCommandList> mCommandList;
+	};
+
+
+	class GraphicsCommandList : public CommandList {
+	public:
+		GraphicsCommandList(const Device& device, const CommandAllocator& allocator);
+	};
+
+
+	class CopyCommandList : public CommandList {
+	public:
+		CopyCommandList(const Device& device, const CommandAllocator& allocator);
+	};
+
+
+	class ComputeCommandList : public CommandList {
+	public:
+		ComputeCommandList(const Device& device, const CommandAllocator& allocator);
+	};
+
+	class BundleCommandList : public CommandList {
+	public:
+		BundleCommandList(const Device& device, const CommandAllocator& allocator);
 	};
 }

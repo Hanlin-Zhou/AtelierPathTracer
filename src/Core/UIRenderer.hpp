@@ -19,11 +19,12 @@ namespace  APT {
 		~UIRenderer();
 		void Render();
 		void ToggleUI();
+		void ShutDown();
 
 	private:
 		bool mHideUI;
 		std::shared_ptr<RenderEngine>  mRenderEngine;
-		std::unique_ptr<DX::DescriptorHeap> mUIDescriptorHeap;
+		std::unique_ptr<DX::ShaderDescriptorHeap> mUIDescriptorHeap;
 
 		
 	};

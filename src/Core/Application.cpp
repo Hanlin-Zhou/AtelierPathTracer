@@ -36,14 +36,12 @@ namespace APT {
         CreateApplicationWindow();
         mRenderEngine = std::make_shared<RenderEngine>(mHWND, mDefaultClientWidth, mDefaultClientHeight);
         mUIRenderer = std::make_unique<UIRenderer>(mRenderEngine);
+        mPathTracer = std::make_unique<PathTracer>();
         mInited = true;
     }
 
     Application::~Application()
     {
-        IDXGIDebug* debugDev;
-        HRESULT hr = DXGIGetDebugInterface1(0, IID_PPV_ARGS(&debugDev));
-        hr = debugDev->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_ALL);
     }
 
 
@@ -61,8 +59,17 @@ namespace APT {
             }
             Render();
         }
-        mRenderEngine->ShutDown();
+        ShutDown();
 	}
+
+
+    void Application::ShutDown()
+    {
+        mUIRenderer->ShutDown();
+        mRenderEngine->ShutDown();
+        ::DestroyWindow(mHWND);
+    }
+
 
     void Application::Update()
     {
@@ -146,6 +153,6 @@ namespace APT {
     bool Application::HandleMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
         if (mRenderEngine->HandleMessage(hwnd, message, wParam, lParam))
             return true;
-
+        return false;
     }
 }

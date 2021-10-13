@@ -7,8 +7,6 @@
 namespace DX {
 	class DescriptorHeap {
 	public:
-		DescriptorHeap(const Device& device, D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t numDescriptors, D3D12_DESCRIPTOR_HEAP_FLAGS flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE);
-
 		ID3D12DescriptorHeap* GetDescriptorHeap()  const;
 
 		UINT GetDesriptorHeapSize() const;
@@ -20,8 +18,34 @@ namespace DX {
 		void CreateRenderTargetView(const Resource& resource, const Device& device, int index);
 
 	protected:
+		DescriptorHeap(const Device& device, D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t numDescriptors, D3D12_DESCRIPTOR_HEAP_FLAGS flags);
+
 		ComPtr<ID3D12DescriptorHeap> mDescriptorHeap;
 
 		UINT mSize;
+	};
+
+
+	class ShaderDescriptorHeap : public DescriptorHeap {
+	public:
+		ShaderDescriptorHeap(const Device& device, uint32_t numDescriptors);
+	};
+
+
+	class SamplerDescriptorHeap : public DescriptorHeap {
+	public:
+		SamplerDescriptorHeap(const Device& device, uint32_t numDescriptors);
+	};
+
+
+	class RTVDescriptorHeap : public DescriptorHeap {
+	public:
+		RTVDescriptorHeap(const Device& device, uint32_t numDescriptors);
+	};
+
+
+	class DSVDescriptorHeap : public DescriptorHeap {
+	public:
+		DSVDescriptorHeap(const Device& device, uint32_t numDescriptors);
 	};
 }

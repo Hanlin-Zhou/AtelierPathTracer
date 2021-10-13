@@ -37,4 +37,13 @@ namespace DX {
 	{
 		ThrowIfFailed(mCommandList->Close());
 	}
+
+
+	GraphicsCommandList::GraphicsCommandList(const Device& device, const CommandAllocator& allocator) : CommandList(device, allocator, D3D12_COMMAND_LIST_TYPE_DIRECT) {}
+
+	CopyCommandList::CopyCommandList(const Device& device, const CommandAllocator& allocator) : CommandList(device, allocator, D3D12_COMMAND_LIST_TYPE_COPY) {}
+
+	ComputeCommandList::ComputeCommandList(const Device& device, const CommandAllocator& allocator) : CommandList(device, allocator, D3D12_COMMAND_LIST_TYPE_COMPUTE) {}
+
+	BundleCommandList::BundleCommandList(const Device& device, const CommandAllocator& allocator) : CommandList(device, allocator, D3D12_COMMAND_LIST_TYPE_BUNDLE) {}
 }

@@ -40,5 +40,14 @@ namespace DX {
 		return Event;
 	}
 
+	void PrintLiveObjects()
+	{
+#if defined(_DEBUG)
+		IDXGIDebug* debugDev;
+		HRESULT hr = DXGIGetDebugInterface1(0, IID_PPV_ARGS(&debugDev));
+		hr = debugDev->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_ALL);
+#endif
+	}
+
 
 }

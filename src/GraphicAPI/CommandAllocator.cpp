@@ -16,4 +16,12 @@ namespace DX {
 		mCommandAllocator->Reset();
 	}
 
+	GraphicsCommandAllocator::GraphicsCommandAllocator(const Device& device) :CommandAllocator(device, D3D12_COMMAND_LIST_TYPE_DIRECT) {}
+
+	CopyCommandAllocator::CopyCommandAllocator(const Device& device) : CommandAllocator(device, D3D12_COMMAND_LIST_TYPE_COPY) {}
+
+	ComputeCommandAllocator::ComputeCommandAllocator(const Device& device) : CommandAllocator(device, D3D12_COMMAND_LIST_TYPE_COMPUTE) {}
+
+	BundleCommandAllocator::BundleCommandAllocator(const Device& device) : CommandAllocator(device, D3D12_COMMAND_LIST_TYPE_BUNDLE) {}
+
 }

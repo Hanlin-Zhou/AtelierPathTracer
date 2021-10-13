@@ -40,4 +40,17 @@ namespace DX {
 	{
 		device.GetDevice()->CreateRenderTargetView(resource.GetResource(), nullptr, GetCPUDescriptorHandle(index));
 	}
+
+
+	ShaderDescriptorHeap::ShaderDescriptorHeap(const Device& device, uint32_t numDescriptors) : 
+		DescriptorHeap(device, D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, numDescriptors, D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE) {}
+
+	SamplerDescriptorHeap::SamplerDescriptorHeap(const Device& device, uint32_t numDescriptors) :
+		DescriptorHeap(device, D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER, numDescriptors, D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE) {}
+
+	RTVDescriptorHeap::RTVDescriptorHeap(const Device& device, uint32_t numDescriptors) :
+		DescriptorHeap(device, D3D12_DESCRIPTOR_HEAP_TYPE_RTV, numDescriptors, D3D12_DESCRIPTOR_HEAP_FLAG_NONE) {}
+
+	DSVDescriptorHeap::DSVDescriptorHeap(const Device& device, uint32_t numDescriptors) :
+		DescriptorHeap(device, D3D12_DESCRIPTOR_HEAP_TYPE_DSV, numDescriptors, D3D12_DESCRIPTOR_HEAP_FLAG_NONE) {}
 }

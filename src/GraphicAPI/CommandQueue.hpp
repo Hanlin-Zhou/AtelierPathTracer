@@ -12,8 +12,6 @@ using namespace Microsoft::WRL;
 namespace DX {
 	class CommandQueue {
 	public:
-		CommandQueue(const Device &device, D3D12_COMMAND_LIST_TYPE type);
-
 		ID3D12CommandQueue* getQueue() const;
 
 		void ExecuteCommandList(const CommandList &commandlist);
@@ -23,8 +21,32 @@ namespace DX {
 		void waitFence();
 
 	protected:
+		CommandQueue(const Device& device, D3D12_COMMAND_LIST_TYPE type);
+
 		ComPtr<ID3D12CommandQueue> mCommandQueue;
 	};
 
 
+	class GraphicsCommandQueue : public CommandQueue {
+	public:
+		GraphicsCommandQueue(const Device& device);
+	};
+
+
+	class CopyCommandQueue : public CommandQueue {
+	public:
+		CopyCommandQueue(const Device& device);
+	};
+
+
+	class ComputeCommandQueue : public CommandQueue {
+	public:
+		ComputeCommandQueue(const Device& device);
+	};
+
+
+	class BundleCommandQueue : public CommandQueue {
+	public:
+		BundleCommandQueue(const Device& device);
+	};
 }

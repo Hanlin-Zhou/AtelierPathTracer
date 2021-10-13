@@ -30,5 +30,14 @@ namespace DX {
         ThrowIfFailed(mCommandQueue->Signal(fence.GetFence(), value));
         return value;
     }
+
+
+    GraphicsCommandQueue::GraphicsCommandQueue(const Device& device) : CommandQueue(device, D3D12_COMMAND_LIST_TYPE_DIRECT) {}
+
+    CopyCommandQueue::CopyCommandQueue(const Device& device) : CommandQueue(device, D3D12_COMMAND_LIST_TYPE_COPY) {}
+
+    ComputeCommandQueue::ComputeCommandQueue(const Device& device) : CommandQueue(device, D3D12_COMMAND_LIST_TYPE_COMPUTE) {}
+
+    BundleCommandQueue::BundleCommandQueue(const Device& device) : CommandQueue(device, D3D12_COMMAND_LIST_TYPE_BUNDLE) {}
 }
 

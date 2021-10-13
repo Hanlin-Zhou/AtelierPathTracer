@@ -9,25 +9,24 @@ namespace APT {
         mClientHeight = height;
         DX::EnableDebugLayer();
         mAdapter = std::make_unique<DX::Adapter>(false);
-        mDevice = std::make_unique<DX::Device>(*mAdapter.get());
-        mCommandQueue = std::make_unique<DX::CommandQueue>(*mDevice.get(), D3D12_COMMAND_LIST_TYPE_DIRECT);
-        mSwapChain = std::make_unique<DX::SwapChain>(mHWND, *mCommandQueue.get(), mClientWidth, mClientHeight, mNumFrames);
-        mDescriptorHeap = std::make_unique<DX::DescriptorHeap>(*mDevice.get(), D3D12_DESCRIPTOR_HEAP_TYPE_RTV, mNumFrames);
-        mCurrentBuffer = mSwapChain.get()->GetCurrentBackBufferIndex();
+        mDevice = std::make_unique<DX::Device>(*mAdapter);
+        mCommandQueue = std::make_unique<DX::GraphicsCommandQueue>(*mDevice);
+        mSwapChain = std::make_unique<DX::SwapChain>(mHWND, *mCommandQueue, mClientWidth, mClientHeight, mNumFrames);
+        mDescriptorHeap = std::make_unique<DX::RTVDescriptorHeap>(*mDevice, mNumFrames);
+        mCurrentBuffer = mSwapChain->GetCurrentBackBufferIndex();
         for (int i = 0; i < mNumFrames; i++)
         {
-            mCommandAllocators.push_back(std::make_unique<DX::CommandAllocator>(*mDevice.get(), D3D12_COMMAND_LIST_TYPE_DIRECT));
+            mCommandAllocators.push_back(std::make_unique<DX::GraphicsCommandAllocator>(*mDevice));
         }
-        mCommandList = std::make_unique<DX::CommandList>(*mDevice.get(), *mCommandAllocators[mCurrentBuffer].get(), D3D12_COMMAND_LIST_TYPE_DIRECT);
-        mFence = std::make_unique<DX::Fence>(*mDevice.get());
-        mCurrentBuffer = mSwapChain.get()->GetCurrentBackBufferIndex();
-        mSwapChain.get()->UpdateRenderTargetViews(*mDescriptorHeap.get(), *mDevice.get());
+        mCommandList = std::make_unique<DX::GraphicsCommandList>(*mDevice, *mCommandAllocators[mCurrentBuffer]);
+        mFence = std::make_unique<DX::Fence>(*mDevice);
+        mCurrentBuffer = mSwapChain->GetCurrentBackBufferIndex();
+        mSwapChain->UpdateRenderTargetViews(*mDescriptorHeap, *mDevice);
         mInited = true;
 	}
 
     RenderEngine::~RenderEngine()
     {
-        OutputDebugString(L"Destroying RenderEngine---\n");
     }
 
 
@@ -43,41 +42,64 @@ namespace APT {
 
     void RenderEngine::ClearScreen()
     {
-        mCommandAllocators[mCurrentBuffer].get()->Reset();
-        mCommandList.get()->Reset(*mCommandAllocators[mCurrentBuffer].get());
-        DX::ResourceBarrier barrier(*mSwapChain.get()->GetBackBuffer(mCurrentBuffer), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
-        mCommandList.get()->SetResourceBarrier(barrier);
+        mCommandAllocators[mCurrentBuffer]->Reset();
+        mCommandList->Reset(*mCommandAllocators[mCurrentBuffer]);
+        DX::ResourceBarrier barrier(*mSwapChain->GetBackBuffer(mCurrentBuffer), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+        mCommandList->SetResourceBarrier(barrier);
         FLOAT clearColor[] = { 0.4f, 0.6f, 0.9f, 1.0f };
-        CD3DX12_CPU_DESCRIPTOR_HANDLE rtv = mDescriptorHeap.get()->GetCPUDescriptorHandle(mCurrentBuffer);
-        mCommandList.get()->ClearRenderTargetView(rtv, clearColor);
+        CD3DX12_CPU_DESCRIPTOR_HANDLE rtv = mDescriptorHeap->GetCPUDescriptorHandle(mCurrentBuffer);
+        mCommandList->ClearRenderTargetView(rtv, clearColor);
     }
 
 
     void RenderEngine::Present()
     {
-        DX::ResourceBarrier barrier(*mSwapChain.get()->GetBackBuffer(mCurrentBuffer), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+        DX::ResourceBarrier barrier(*mSwapChain->GetBackBuffer(mCurrentBuffer), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
         mCommandList->SetResourceBarrier(barrier);
         mCommandList->Close();
-        mCommandQueue.get()->ExecuteCommandList(*mCommandList.get());
+        mCommandQueue->ExecuteCommandList(*mCommandList);
         UINT sync = 1;
         UINT flag = 0;
-        mSwapChain.get()->Present(sync, flag);
-        mSwapChain.get()->SetFenceValue(mCurrentBuffer, mCommandQueue.get()->SignalFence(*mFence.get()));
-        mCurrentBuffer = mSwapChain.get()->GetCurrentBackBufferIndex();
-        mFence.get()->Wait(mSwapChain.get()->GetFenceValue(mCurrentBuffer));
+        mSwapChain->Present(sync, flag);
+        mSwapChain->SetFenceValue(mCurrentBuffer, mCommandQueue->SignalFence(*mFence));
+        mCurrentBuffer = mSwapChain->GetCurrentBackBufferIndex();
+        mFence->Wait(mSwapChain->GetFenceValue(mCurrentBuffer));
     }
 
     void RenderEngine::ShutDown()
     {
         Flush();
-        mFence.get()->CloseHandle();
+        mFence->CloseHandle();
+    }
+
+
+    void RenderEngine::UpdateSubresources(ID3D12Resource* dest, ID3D12Resource* intermediate, D3D12_SUBRESOURCE_DATA* data) const
+    {
+        ::UpdateSubresources(mCommandList->GetCommandList(),
+            dest, intermediate,
+            0, 0, 1, data);
+    }
+
+    DX::Device* RenderEngine::Device() const
+    {
+        return mDevice.get();
+    }
+
+    DX::CommandList* RenderEngine::CommandList() const
+    {
+        return mCommandList.get();
+    }
+
+    DX::DescriptorHeap* RenderEngine::DescriptorHeap() const
+    {
+        return mDescriptorHeap.get();
     }
 
 
     void RenderEngine::Flush()
     {
-        uint64_t value = mCommandQueue.get()->SignalFence(*mFence.get());
-        mFence.get()->Wait(value);
+        uint64_t value = mCommandQueue->SignalFence(*mFence);
+        mFence->Wait(value);
     }
 
 
@@ -94,8 +116,8 @@ namespace APT {
         mClientWidth = std::max(1u, (uint32_t)width);
         mClientHeight = std::max(1u, (uint32_t)height);
         Flush();
-        mSwapChain.get()->Resize(mClientWidth, mClientHeight, *mFence.get());
-        mCurrentBuffer = mSwapChain.get()->GetCurrentBackBufferIndex();
-        mSwapChain.get()->UpdateRenderTargetViews(*mDescriptorHeap.get(), *mDevice.get());
+        mSwapChain->Resize(mClientWidth, mClientHeight, *mFence);
+        mCurrentBuffer = mSwapChain->GetCurrentBackBufferIndex();
+        mSwapChain->UpdateRenderTargetViews(*mDescriptorHeap, *mDevice);
     }
 }

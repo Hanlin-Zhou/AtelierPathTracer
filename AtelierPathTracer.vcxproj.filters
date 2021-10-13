@@ -45,6 +45,9 @@
     <Filter Include="Source Files\Utility">
       <UniqueIdentifier>{44bff985-809c-4b6f-9a77-fa2d5ee7687d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Shader">
+      <UniqueIdentifier>{e42d9e9a-8853-4030-99a2-563ce64bf684}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -112,6 +115,24 @@
     </ClCompile>
     <ClCompile Include="src\Utility\OutputDebug.cpp">
       <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\PathTracer.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\PreviewRenderer.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GraphicAPI\RootSignature.cpp">
+      <Filter>Source Files\GraphicAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GraphicAPI\PipelineState.cpp">
+      <Filter>Source Files\GraphicAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GraphicAPI\ResourceState.cpp">
+      <Filter>Source Files\GraphicAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GraphicAPI\ResourceInfo.cpp">
+      <Filter>Source Files\GraphicAPI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,5 +205,40 @@
     <ClInclude Include="include\DirectX12\dxgidebug.h">
       <Filter>Includes\DirectX12</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\PathTracer.hpp">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\PreviewRenderer.hpp">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\RootSignature.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\PipelineState.hpp">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\ResourceState.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\HeapType.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\ResourceInfo.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\ResourceFlag.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\ResourceFormat.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="src\Shader\VertexShader.hlsl">
+      <Filter>Source Files\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="src\Shader\PixelShader.hlsl">
+      <Filter>Source Files\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

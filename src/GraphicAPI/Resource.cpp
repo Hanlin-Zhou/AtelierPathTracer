@@ -4,15 +4,31 @@ namespace DX {
 	
 
 
+	Resource::Resource()
+	{
+	}
+
 	Resource::Resource(const ComPtr<ID3D12Resource>& resource)
 	{
 		mResource = resource;
+		mDescriptor = mResource->GetDesc();
+		mCompleted = true;
 	}
 
 
 	void Resource::Reset()
 	{
 		mResource.Reset();
+		mDescriptor = D3D12_RESOURCE_DESC{};
+		mCompleted = false;
+	}
+
+
+	void Resource::Set(ComPtr<ID3D12Resource> resource)
+	{
+		mResource = resource;
+		mDescriptor = mResource->GetDesc();
+		mCompleted = true;
 	}
 
 
@@ -22,10 +38,15 @@ namespace DX {
 	}
 
 
-	ComPtr<ID3D12Resource> Resource::GetComPtr()
+	bool Resource::IsCompleted()
 	{
-		return mResource;
+		return mCompleted;
 	}
 
+
+	D3D12_GPU_VIRTUAL_ADDRESS Resource::GetGPUVirtualAddress()
+	{
+		return mResource->GetGPUVirtualAddress();
+	}
 }
 

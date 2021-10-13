@@ -1,0 +1,13 @@
+#pragma once
+#include <DirectX12/d3dx12.h>
+
+namespace DX {
+	enum class ResourceFlag {
+		None			= D3D12_RESOURCE_FLAG_NONE,
+		AllowRT			= D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET,
+		AllowDS			= D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL,
+		AllowUA			= D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS,
+		DenyShader		= D3D12_RESOURCE_FLAG_DENY_SHADER_RESOURCE
+
+	};
+}

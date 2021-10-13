@@ -8,6 +8,9 @@
 #include <GraphicAPI/Resource.hpp>
 #include <GraphicAPI/CommandAllocator.hpp>
 #include <GraphicAPI/CommandList.hpp>
+#include <GraphicAPI/PipelineState.hpp>
+#include <GraphicAPI/RootSignature.hpp>
+#include <DirectXMath.h>
 
 namespace APT {
 	class RenderEngine {
@@ -18,22 +21,29 @@ namespace APT {
 		void ClearScreen();
 		void Present();
 		void ShutDown();
+		void UpdateSubresources(ID3D12Resource* dest, ID3D12Resource* intermediate, D3D12_SUBRESOURCE_DATA* data) const;
+		DX::Device* Device() const;
+		DX::CommandList* CommandList() const;
+		DX::DescriptorHeap* DescriptorHeap() const;
 		friend class UIRenderer;
-	private:
+
 		HWND mHWND;
 		uint32_t mClientWidth;
 		uint32_t mClientHeight;
 		const uint8_t mNumFrames = 3;
+
+	private:
+		
 		UINT mCurrentBuffer;
 		bool mInited = false;
 		std::unique_ptr <DX::Adapter> mAdapter;
 		std::unique_ptr <DX::Device> mDevice;
-		std::unique_ptr <DX::CommandQueue> mCommandQueue;
+		std::unique_ptr <DX::GraphicsCommandQueue> mCommandQueue;
 		std::unique_ptr <DX::SwapChain> mSwapChain;
-		std::unique_ptr <DX::DescriptorHeap> mDescriptorHeap;
-		std::unique_ptr <DX::CommandList> mCommandList;
+		std::unique_ptr <DX::RTVDescriptorHeap> mDescriptorHeap;
+		std::unique_ptr <DX::GraphicsCommandList> mCommandList;
 		std::unique_ptr <DX::Fence> mFence;
-		std::vector<std::unique_ptr<DX::CommandAllocator>> mCommandAllocators;
+		std::vector<std::unique_ptr<DX::GraphicsCommandAllocator>> mCommandAllocators;
 
 		void Flush();
 		void Resize();

@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <wrl.h>
 #include <DirectX12/d3dx12.h>
+#include <DirectX12/dxgidebug.h>
 #include <dxgi1_6.h>
 #include <exception>
 #include <cassert>
@@ -22,4 +23,6 @@ namespace DX {
     bool CheckTearingSupport();
 
     HANDLE CreateEventHandle();
+
+    void PrintLiveObjects();
 }

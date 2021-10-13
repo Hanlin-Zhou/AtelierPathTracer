@@ -5,7 +5,7 @@ namespace APT {
 	{
 		mHideUI = false;
 		mRenderEngine = renderengine;
-		mUIDescriptorHeap = std::make_unique<DX::DescriptorHeap>(*mRenderEngine->mDevice.get(), D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1, D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE);
+		mUIDescriptorHeap = std::make_unique<DX::ShaderDescriptorHeap>(*mRenderEngine->mDevice.get(), 1);
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO();
@@ -38,8 +38,8 @@ namespace APT {
 			ImGui::End();
 		}
 		ImGui::Render();
-		CD3DX12_CPU_DESCRIPTOR_HANDLE UIrtv = mRenderEngine->mDescriptorHeap->GetCPUDescriptorHandle(mRenderEngine->mCurrentBuffer);
-		mRenderEngine->mCommandList->GetCommandList()->OMSetRenderTargets(1, &UIrtv, 0, nullptr);
+		CD3DX12_CPU_DESCRIPTOR_HANDLE rendertarget = mRenderEngine->mDescriptorHeap->GetCPUDescriptorHandle(mRenderEngine->mCurrentBuffer);
+		mRenderEngine->mCommandList->GetCommandList()->OMSetRenderTargets(1, &rendertarget, 0, nullptr);
 		ID3D12DescriptorHeap* const descriptorHeapList[] = {mUIDescriptorHeap->GetDescriptorHeap()};
 		mRenderEngine->mCommandList->GetCommandList()->SetDescriptorHeaps(1, descriptorHeapList);
 		ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), mRenderEngine->mCommandList->GetCommandList());
@@ -52,10 +52,17 @@ namespace APT {
 		mHideUI = !mHideUI;
 	}
 
+
+	void UIRenderer::ShutDown()
+	{
+		ImGui_ImplDX12_Shutdown();
+		ImGui_ImplWin32_Shutdown();
+		ImGui::DestroyContext();
+	}
+
+
 	UIRenderer::~UIRenderer()
 	{
-		mRenderEngine.reset();
-		OutputDebugString(L"Destroying UI Renderer---\n");
 	}
 
 }
