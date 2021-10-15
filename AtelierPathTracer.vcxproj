@@ -98,6 +98,8 @@
     </Link>
     <FxCompile>
       <ShaderModel>5.1</ShaderModel>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src\Shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileOutput>$(ProjectDir)CompiledShader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -156,8 +158,6 @@
     <ClCompile Include="include\ImGui\imgui_tables.cpp" />
     <ClCompile Include="include\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="src\Core\Application.cpp" />
-    <ClCompile Include="src\Core\PathTracer.cpp" />
-    <ClCompile Include="src\Core\PreviewRenderer.cpp" />
     <ClCompile Include="src\Core\RenderEngine.cpp" />
     <ClCompile Include="src\Core\UIRenderer.cpp" />
     <ClCompile Include="src\GraphicAPI\Adapter.cpp" />
@@ -174,8 +174,13 @@
     <ClCompile Include="src\GraphicAPI\ResourceInfo.cpp" />
     <ClCompile Include="src\GraphicAPI\ResourceState.cpp" />
     <ClCompile Include="src\GraphicAPI\RootSignature.cpp" />
+    <ClCompile Include="src\GraphicAPI\Shader.cpp" />
     <ClCompile Include="src\GraphicAPI\SwapChain.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\PathTracer\Math\Matrix.cpp" />
+    <ClCompile Include="src\PathTracer\Math\Vector.cpp" />
+    <ClCompile Include="src\PathTracer\PathTracer.cpp" />
+    <ClCompile Include="src\PathTracer\PreviewRenderer.cpp" />
     <ClCompile Include="src\Utility\OutputDebug.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -188,8 +193,6 @@
     <ClInclude Include="include\ImGui\imgui.h" />
     <ClInclude Include="include\ImGui\imgui_internal.h" />
     <ClInclude Include="src\Core\Application.hpp" />
-    <ClInclude Include="src\Core\PathTracer.hpp" />
-    <ClInclude Include="src\Core\PreviewRenderer.hpp" />
     <ClInclude Include="src\Core\RenderEngine.hpp" />
     <ClInclude Include="src\Core\UIRenderer.hpp" />
     <ClInclude Include="src\GraphicAPI\Adapter.hpp" />
@@ -209,7 +212,12 @@
     <ClInclude Include="src\GraphicAPI\ResourceInfo.hpp" />
     <ClInclude Include="src\GraphicAPI\ResourceState.hpp" />
     <ClInclude Include="src\GraphicAPI\RootSignature.hpp" />
+    <ClInclude Include="src\GraphicAPI\Shader.hpp" />
     <ClInclude Include="src\GraphicAPI\SwapChain.hpp" />
+    <ClInclude Include="src\PathTracer\Math\Matrix.hpp" />
+    <ClInclude Include="src\PathTracer\Math\Vector.hpp" />
+    <ClInclude Include="src\PathTracer\PathTracer.hpp" />
+    <ClInclude Include="src\PathTracer\PreviewRenderer.hpp" />
     <ClInclude Include="src\Utility\OutputDebug.hpp" />
   </ItemGroup>
   <ItemGroup>

@@ -40,8 +40,11 @@ namespace DX {
 		 UINT16 arraySize, UINT16 mipLevels, UINT sampleCount, UINT sampleQuality) : ResourceInfo(initState)
 	{
 		mDescriptor = CD3DX12_RESOURCE_DESC::Tex2D((DXGI_FORMAT)format, width, height, arraySize, mipLevels, sampleCount, sampleQuality, (D3D12_RESOURCE_FLAGS)flag);
-		mClearValue.Format = (DXGI_FORMAT)format;
-		mClearValue.DepthStencil = { 1.0f, 0 };
-		mHasClearValue = true;
+		switch (format) {
+		case ResourceFormat::Depth32:
+			mClearValue.Format = (DXGI_FORMAT)format;
+			mClearValue.DepthStencil = { 1.0f, 0 };
+			mHasClearValue = true;
+		}
 	}
 }

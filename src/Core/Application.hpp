@@ -7,7 +7,7 @@
 #include <iostream>
 #include <Core/RenderEngine.hpp>
 #include <Core/UIRenderer.hpp>
-#include <Core/PathTracer.hpp>
+#include <PathTracer/PathTracer.hpp>
 
 namespace APT {
 	class Application {

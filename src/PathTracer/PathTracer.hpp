@@ -1,10 +1,13 @@
 #pragma once
-#include <Core/PreviewRenderer.hpp>
+#include <PathTracer/PreviewRenderer.hpp>
 #include <memory>
+
 namespace APT {
 	class PathTracer {
 	public: 
-		PathTracer();
+		PathTracer(std::shared_ptr<RenderEngine> renderengine);
+
+		void RenderPreview();
 	private:
 		std::unique_ptr<PreviewRenderer> mPreviewRenderer;
 

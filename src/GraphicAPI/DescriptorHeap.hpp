@@ -47,5 +47,7 @@ namespace DX {
 	class DSVDescriptorHeap : public DescriptorHeap {
 	public:
 		DSVDescriptorHeap(const Device& device, uint32_t numDescriptors);
+
+		void CreateDepthStencilView(const Resource& resource, const Device& device);
 	};
 }

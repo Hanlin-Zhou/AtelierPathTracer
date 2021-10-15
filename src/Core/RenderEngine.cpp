@@ -80,6 +80,17 @@ namespace APT {
             0, 0, 1, data);
     }
 
+    void RenderEngine::ClearDepth(DX::DSVDescriptorHeap dsv)
+    {
+        mCommandList->ClearDepthStencilView(dsv.GetCPUDescriptorHandleStart());
+    }
+
+    void RenderEngine::Record()
+    {
+        mCommandAllocators[mCurrentBuffer]->Reset();
+        mCommandList->Reset(*mCommandAllocators[mCurrentBuffer]);
+    }
+
     DX::Device* RenderEngine::Device() const
     {
         return mDevice.get();
@@ -95,11 +106,37 @@ namespace APT {
         return mDescriptorHeap.get();
     }
 
+    uint32_t RenderEngine::GetHeight() const
+    {
+        return mClientHeight;
+    }
+
+    uint32_t RenderEngine::GetWidth() const
+    {
+        return mClientWidth;
+    }
+
+    HWND RenderEngine::GetHWND() const
+    {
+        return mHWND;
+    }
+
 
     void RenderEngine::Flush()
     {
         uint64_t value = mCommandQueue->SignalFence(*mFence);
         mFence->Wait(value);
+    }
+
+    void RenderEngine::ExcecuteAndWait() {
+        mCommandList->Close();
+        mCommandQueue->ExecuteCommandList(*mCommandList);
+        Flush();
+    }
+
+    UINT RenderEngine::GetCurrentBufferIndex()
+    {
+        return mCurrentBuffer;
     }
 
 

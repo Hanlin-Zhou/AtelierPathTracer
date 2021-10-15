@@ -1,14 +1,15 @@
 #pragma once
 #include <Core/RenderEngine.hpp>
+#include <GraphicAPI/Shader.hpp>
 #include <directxmath.h>
 // to be deleted
-#include <d3dcompiler.h>
+
 
 
 namespace APT {
 	class PreviewRenderer {
 	public:
-		PreviewRenderer(const RenderEngine &renderEnigne);
+		PreviewRenderer(std::shared_ptr<RenderEngine> renderengine);
 		void Render();
 	private:
 		std::unique_ptr<DX::Resource> mVertexBuffer;
@@ -18,7 +19,10 @@ namespace APT {
 		D3D12_VERTEX_BUFFER_VIEW mVertexBufferView;
 		D3D12_INDEX_BUFFER_VIEW mIndexBufferView;
 
-		std::unique_ptr<DX::DescriptorHeap> mDSVHeap;
+		std::unique_ptr<DX::DSVDescriptorHeap> mDSVHeap;
+
+		std::unique_ptr<DX::VertexShader> mVertexShader;
+		std::unique_ptr<DX::PixelShader> mPixelShader;
 
 		std::unique_ptr<DX::RootSignature> mRootSignature;
 		ComPtr<ID3D12RootSignature> m_RootSignature;
@@ -37,5 +41,6 @@ namespace APT {
 
 		bool m_ContentLoaded;
 
+		std::shared_ptr<RenderEngine> mRenderEngine;
 	};
 }

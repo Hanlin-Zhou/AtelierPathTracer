@@ -10,6 +10,7 @@
 #include <GraphicAPI/CommandList.hpp>
 #include <GraphicAPI/PipelineState.hpp>
 #include <GraphicAPI/RootSignature.hpp>
+#include <GraphicAPI/ResourceInfo.hpp>
 #include <DirectXMath.h>
 
 namespace APT {
@@ -22,6 +23,12 @@ namespace APT {
 		void Present();
 		void ShutDown();
 		void UpdateSubresources(ID3D12Resource* dest, ID3D12Resource* intermediate, D3D12_SUBRESOURCE_DATA* data) const;
+		void ClearDepth(DX::DSVDescriptorHeap dsv);
+		void Record();
+		void ExcecuteAndWait();
+		UINT GetCurrentBufferIndex();
+
+
 		DX::Device* Device() const;
 		DX::CommandList* CommandList() const;
 		DX::DescriptorHeap* DescriptorHeap() const;
@@ -32,6 +39,9 @@ namespace APT {
 		uint32_t mClientHeight;
 		const uint8_t mNumFrames = 3;
 
+		uint32_t GetHeight() const;
+		uint32_t GetWidth() const;
+		HWND GetHWND() const;
 	private:
 		
 		UINT mCurrentBuffer;

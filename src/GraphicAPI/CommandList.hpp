@@ -15,7 +15,9 @@ namespace DX {
 
 		void Reset(const CommandAllocator& commandallocator);
 
-		void ClearRenderTargetView(CD3DX12_CPU_DESCRIPTOR_HANDLE rtv, const float* color);
+		void ClearRenderTargetView(CD3DX12_CPU_DESCRIPTOR_HANDLE rtv, const FLOAT* color);
+
+		void ClearDepthStencilView(CD3DX12_CPU_DESCRIPTOR_HANDLE dsv, float value = 1.0);
 
 		void Close();
 

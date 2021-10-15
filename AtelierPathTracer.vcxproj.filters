@@ -48,6 +48,24 @@
     <Filter Include="Source Files\Shader">
       <UniqueIdentifier>{e42d9e9a-8853-4030-99a2-563ce64bf684}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\PathTracer">
+      <UniqueIdentifier>{f46ecc97-2fc4-405a-910a-1d3c01d9802d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PathTracer">
+      <UniqueIdentifier>{dbe4241c-d38e-42a9-a28b-b04b9c5a3d22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PathTracer\Math">
+      <UniqueIdentifier>{10e35f02-e185-4c1c-bf55-2c083329dee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PathTracer\Camera">
+      <UniqueIdentifier>{057931f7-845e-493f-916d-b320554648d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathTracer\Math">
+      <UniqueIdentifier>{9ae0ba76-f52f-4457-92b6-d6091fc2f951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathTracer\Camera">
+      <UniqueIdentifier>{7c4eee9c-a40d-402c-9590-34a01ffcaaf5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -116,12 +134,6 @@
     <ClCompile Include="src\Utility\OutputDebug.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\PathTracer.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\PreviewRenderer.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="src\GraphicAPI\RootSignature.cpp">
       <Filter>Source Files\GraphicAPI</Filter>
     </ClCompile>
@@ -133,6 +145,21 @@
     </ClCompile>
     <ClCompile Include="src\GraphicAPI\ResourceInfo.cpp">
       <Filter>Source Files\GraphicAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\PathTracer.cpp">
+      <Filter>Source Files\PathTracer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\PreviewRenderer.cpp">
+      <Filter>Source Files\PathTracer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GraphicAPI\Shader.cpp">
+      <Filter>Source Files\GraphicAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Math\Vector.cpp">
+      <Filter>Source Files\PathTracer\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Math\Matrix.cpp">
+      <Filter>Source Files\PathTracer\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,17 +232,8 @@
     <ClInclude Include="include\DirectX12\dxgidebug.h">
       <Filter>Includes\DirectX12</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\PathTracer.hpp">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\PreviewRenderer.hpp">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="src\GraphicAPI\RootSignature.hpp">
       <Filter>Header Files\GraphicAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GraphicAPI\PipelineState.hpp">
-      <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\GraphicAPI\ResourceState.hpp">
       <Filter>Header Files\GraphicAPI</Filter>
@@ -231,6 +249,24 @@
     </ClInclude>
     <ClInclude Include="src\GraphicAPI\ResourceFormat.hpp">
       <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\PipelineState.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\PathTracer.hpp">
+      <Filter>Header Files\PathTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\PreviewRenderer.hpp">
+      <Filter>Header Files\PathTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\Shader.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Math\Vector.hpp">
+      <Filter>Header Files\PathTracer\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Math\Matrix.hpp">
+      <Filter>Header Files\PathTracer\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

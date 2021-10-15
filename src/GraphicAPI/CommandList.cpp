@@ -33,6 +33,11 @@ namespace DX {
 	}
 
 
+	void CommandList::ClearDepthStencilView(CD3DX12_CPU_DESCRIPTOR_HANDLE dsv, float value)
+	{
+		mCommandList->ClearDepthStencilView(dsv, D3D12_CLEAR_FLAG_DEPTH, (FLOAT)value, 0, 0, nullptr);
+	}
+
 	void CommandList::Close()
 	{
 		ThrowIfFailed(mCommandList->Close());
