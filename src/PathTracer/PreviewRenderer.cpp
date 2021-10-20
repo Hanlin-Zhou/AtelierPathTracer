@@ -1,7 +1,8 @@
 #include "PreviewRenderer.hpp"
 namespace APT {
-	PreviewRenderer::PreviewRenderer(std::shared_ptr<RenderEngine> renderengine)
+	PreviewRenderer::PreviewRenderer(std::shared_ptr<RenderEngine> renderengine, std::shared_ptr<Camera> camera)
 	{
+		mCamera = camera;
 		mRenderEngine = renderengine;
 		mViewport = CD3DX12_VIEWPORT(0.0f, 0.0f, static_cast<float>(mRenderEngine->mClientWidth), static_cast<float>(mRenderEngine->mClientHeight));
 		mScissorRect = CD3DX12_RECT(0, 0, LONG_MAX, LONG_MAX);
@@ -154,8 +155,8 @@ namespace APT {
 		m_ViewMatrix = DirectX::XMMatrixLookAtLH(eyePosition, focusPoint, upDirection);
 
 		float aspectRatio = mRenderEngine->GetWidth() / static_cast<float>(mRenderEngine->GetHeight());
-		m_ProjectionMatrix = DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(mFov), aspectRatio, 0.1f, 100.0f);
-
+		m_ProjectionMatrix = GetProjMatrix();
+		// DirectX::XMMATRIX compareee = DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(mFov), aspectRatio, 0.1f, 100.0f);
 		m_ModelMatrix = DirectX::XMMatrixIdentity();
 	}
 
@@ -177,10 +178,36 @@ namespace APT {
 		CD3DX12_CPU_DESCRIPTOR_HANDLE rtv = mRenderEngine->DescriptorHeap()->GetCPUDescriptorHandle(mRenderEngine->GetCurrentBufferIndex());
 		mRenderEngine->CommandList()->GetCommandList()->OMSetRenderTargets(1, &rtv, FALSE, &dsv);
 
-		DirectX::XMMATRIX mvpMatrix = DirectX::XMMatrixMultiply(m_ModelMatrix, m_ViewMatrix);
+		DirectX::XMMATRIX mvpMatrix = DirectX::XMMatrixMultiply(m_ModelMatrix, GetViewMatrix());
 		mvpMatrix = DirectX::XMMatrixMultiply(mvpMatrix, m_ProjectionMatrix);
 		mRenderEngine->CommandList()->GetCommandList()->SetGraphicsRoot32BitConstants(0, sizeof(DirectX::XMMATRIX) / 4, &mvpMatrix, 0);
 
 		mRenderEngine->CommandList()->GetCommandList()->DrawIndexedInstanced(36, 1, 0, 0, 0);
+	}
+
+	DirectX::XMMATRIX PreviewRenderer::GetViewMatrix()
+	{
+		// Update the view matrix.
+		Vec3f pos = mCamera->GetPosition();
+		Vec3f target = mCamera->GetTarget();
+		Vec3f up = mCamera->GetUp();
+		const DirectX::XMVECTOR eyePosition = DirectX::XMVectorSet(pos.x, pos.y, pos.z, 1);
+		const DirectX::XMVECTOR focusPoint = DirectX::XMVectorSet(target.x, target.y, target.z, 1);
+		const DirectX::XMVECTOR upDirection = DirectX::XMVectorSet(up.x, up.y, up.z, 0);
+		m_ViewMatrix = DirectX::XMMatrixLookAtLH(eyePosition, focusPoint, upDirection);
+		return m_ViewMatrix;
+	}
+
+	DirectX::XMMATRIX PreviewRenderer::GetProjMatrix()
+	{
+		CameraType t = mCamera->GetType();
+		switch (t) {
+		case CameraType::Perspective:
+			// PerspectiveCamera* pCam = dynamic_cast<PerspectiveCamera*>(mCamera.get());
+			std::shared_ptr<PerspectiveCamera> pCam;
+			pCam = std::static_pointer_cast<PerspectiveCamera>(mCamera);
+			return DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(pCam->GetFov()), mRenderEngine->GetWidth() / static_cast<float>(mRenderEngine->GetHeight()), pCam->GetNear(), pCam->GetFar());
+		}
+		return DirectX::XMMatrixIdentity();
 	}
 }

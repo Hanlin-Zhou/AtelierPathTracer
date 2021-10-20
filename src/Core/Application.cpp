@@ -155,6 +155,8 @@ namespace APT {
     bool Application::HandleMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
         if (mRenderEngine->HandleMessage(hwnd, message, wParam, lParam))
             return true;
+        if (mPathTracer->HandleMessage(hwnd, message, wParam, lParam))
+            return true;
         return false;
     }
 }

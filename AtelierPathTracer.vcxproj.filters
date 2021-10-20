@@ -54,17 +54,23 @@
     <Filter Include="Header Files\PathTracer">
       <UniqueIdentifier>{dbe4241c-d38e-42a9-a28b-b04b9c5a3d22}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\PathTracer\Math">
-      <UniqueIdentifier>{10e35f02-e185-4c1c-bf55-2c083329dee6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\PathTracer\Camera">
       <UniqueIdentifier>{057931f7-845e-493f-916d-b320554648d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\PathTracer\Math">
-      <UniqueIdentifier>{9ae0ba76-f52f-4457-92b6-d6091fc2f951}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\PathTracer\Camera">
       <UniqueIdentifier>{7c4eee9c-a40d-402c-9590-34a01ffcaaf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PathTracer\GeometryMath">
+      <UniqueIdentifier>{3b2bf9a8-061d-456c-b911-812c343a6895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathTracer\GeometryMath">
+      <UniqueIdentifier>{f82da552-26bb-4f08-acae-a0b1fe08fead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PathTracer\Media">
+      <UniqueIdentifier>{2133b59c-4821-4b04-96ca-cb5190f2773e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathTracer\Media">
+      <UniqueIdentifier>{d366e224-da79-4ad0-8759-1b90ea98575a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -155,11 +161,29 @@
     <ClCompile Include="src\GraphicAPI\Shader.cpp">
       <Filter>Source Files\GraphicAPI</Filter>
     </ClCompile>
-    <ClCompile Include="src\PathTracer\Math\Vector.cpp">
-      <Filter>Source Files\PathTracer\Math</Filter>
+    <ClCompile Include="src\PathTracer\GeometryMath\MathHelper.cpp">
+      <Filter>Source Files\PathTracer\GeometryMath</Filter>
     </ClCompile>
-    <ClCompile Include="src\PathTracer\Math\Matrix.cpp">
-      <Filter>Source Files\PathTracer\Math</Filter>
+    <ClCompile Include="src\PathTracer\GeometryMath\Matrix.cpp">
+      <Filter>Source Files\PathTracer\GeometryMath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Camera\Camera.cpp">
+      <Filter>Source Files\PathTracer\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Camera\Film.cpp">
+      <Filter>Source Files\PathTracer\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Media\Medium.cpp">
+      <Filter>Source Files\PathTracer\Media</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Camera\ProjectiveCamera.cpp">
+      <Filter>Source Files\PathTracer\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Camera\PerspectiveCamera.cpp">
+      <Filter>Source Files\PathTracer\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\GeometryMath\Transform.cpp">
+      <Filter>Source Files\PathTracer\GeometryMath</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -262,11 +286,38 @@
     <ClInclude Include="src\GraphicAPI\Shader.hpp">
       <Filter>Header Files\GraphicAPI</Filter>
     </ClInclude>
-    <ClInclude Include="src\PathTracer\Math\Vector.hpp">
-      <Filter>Header Files\PathTracer\Math</Filter>
+    <ClInclude Include="src\PathTracer\GeometryMath\MathHelper.hpp">
+      <Filter>Header Files\PathTracer\GeometryMath</Filter>
     </ClInclude>
-    <ClInclude Include="src\PathTracer\Math\Matrix.hpp">
-      <Filter>Header Files\PathTracer\Math</Filter>
+    <ClInclude Include="src\PathTracer\GeometryMath\Matrix.hpp">
+      <Filter>Header Files\PathTracer\GeometryMath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\GeometryMath\Transform.hpp">
+      <Filter>Header Files\PathTracer\GeometryMath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\GeometryMath\Vector.hpp">
+      <Filter>Header Files\PathTracer\GeometryMath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Camera\Camera.hpp">
+      <Filter>Header Files\PathTracer\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Camera\Film.hpp">
+      <Filter>Header Files\PathTracer\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Media\Medium.hpp">
+      <Filter>Header Files\PathTracer\Media</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Camera\ProjectiveCamera.hpp">
+      <Filter>Header Files\PathTracer\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Camera\PerspectiveCamera.hpp">
+      <Filter>Header Files\PathTracer\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\GeometryMath\Bounds.hpp">
+      <Filter>Header Files\PathTracer\GeometryMath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Camera\CameraType.hpp">
+      <Filter>Header Files\PathTracer\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

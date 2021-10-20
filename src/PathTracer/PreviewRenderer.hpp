@@ -1,6 +1,7 @@
 #pragma once
 #include <Core/RenderEngine.hpp>
 #include <GraphicAPI/Shader.hpp>
+#include <PathTracer/Camera/PerspectiveCamera.hpp>
 #include <directxmath.h>
 // to be deleted
 
@@ -9,7 +10,7 @@
 namespace APT {
 	class PreviewRenderer {
 	public:
-		PreviewRenderer(std::shared_ptr<RenderEngine> renderengine);
+		PreviewRenderer(std::shared_ptr<RenderEngine> renderengine, std::shared_ptr<Camera> camera);
 		void Render();
 	private:
 		std::unique_ptr<DX::Resource> mVertexBuffer;
@@ -42,5 +43,9 @@ namespace APT {
 		bool m_ContentLoaded;
 
 		std::shared_ptr<RenderEngine> mRenderEngine;
+		std::shared_ptr<Camera> mCamera;
+
+		DirectX::XMMATRIX GetViewMatrix();
+		DirectX::XMMATRIX GetProjMatrix();
 	};
 }

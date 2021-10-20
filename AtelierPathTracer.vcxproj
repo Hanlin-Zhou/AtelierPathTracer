@@ -116,7 +116,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d12.lib;dxgi.lib;D3Dcompiler_47.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d12.lib;dxgi.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderModel>5.1</ShaderModel>
@@ -177,8 +177,14 @@
     <ClCompile Include="src\GraphicAPI\Shader.cpp" />
     <ClCompile Include="src\GraphicAPI\SwapChain.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\PathTracer\Math\Matrix.cpp" />
-    <ClCompile Include="src\PathTracer\Math\Vector.cpp" />
+    <ClCompile Include="src\PathTracer\Camera\Camera.cpp" />
+    <ClCompile Include="src\PathTracer\Camera\Film.cpp" />
+    <ClCompile Include="src\PathTracer\Camera\PerspectiveCamera.cpp" />
+    <ClCompile Include="src\PathTracer\Camera\ProjectiveCamera.cpp" />
+    <ClCompile Include="src\PathTracer\GeometryMath\MathHelper.cpp" />
+    <ClCompile Include="src\PathTracer\GeometryMath\Matrix.cpp" />
+    <ClCompile Include="src\PathTracer\GeometryMath\Transform.cpp" />
+    <ClCompile Include="src\PathTracer\Media\Medium.cpp" />
     <ClCompile Include="src\PathTracer\PathTracer.cpp" />
     <ClCompile Include="src\PathTracer\PreviewRenderer.cpp" />
     <ClCompile Include="src\Utility\OutputDebug.cpp" />
@@ -214,8 +220,17 @@
     <ClInclude Include="src\GraphicAPI\RootSignature.hpp" />
     <ClInclude Include="src\GraphicAPI\Shader.hpp" />
     <ClInclude Include="src\GraphicAPI\SwapChain.hpp" />
-    <ClInclude Include="src\PathTracer\Math\Matrix.hpp" />
-    <ClInclude Include="src\PathTracer\Math\Vector.hpp" />
+    <ClInclude Include="src\PathTracer\Camera\Camera.hpp" />
+    <ClInclude Include="src\PathTracer\Camera\CameraType.hpp" />
+    <ClInclude Include="src\PathTracer\Camera\Film.hpp" />
+    <ClInclude Include="src\PathTracer\Camera\PerspectiveCamera.hpp" />
+    <ClInclude Include="src\PathTracer\Camera\ProjectiveCamera.hpp" />
+    <ClInclude Include="src\PathTracer\GeometryMath\Bounds.hpp" />
+    <ClInclude Include="src\PathTracer\GeometryMath\MathHelper.hpp" />
+    <ClInclude Include="src\PathTracer\GeometryMath\Matrix.hpp" />
+    <ClInclude Include="src\PathTracer\GeometryMath\Transform.hpp" />
+    <ClInclude Include="src\PathTracer\GeometryMath\Vector.hpp" />
+    <ClInclude Include="src\PathTracer\Media\Medium.hpp" />
     <ClInclude Include="src\PathTracer\PathTracer.hpp" />
     <ClInclude Include="src\PathTracer\PreviewRenderer.hpp" />
     <ClInclude Include="src\Utility\OutputDebug.hpp" />
