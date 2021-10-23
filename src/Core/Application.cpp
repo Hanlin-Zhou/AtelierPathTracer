@@ -35,8 +35,8 @@ namespace APT {
         mHINSTANCE = hInstance;
         CreateApplicationWindow();
         mRenderEngine = std::make_shared<RenderEngine>(mHWND, mDefaultClientWidth, mDefaultClientHeight);
-        mUIRenderer = std::make_unique<UIRenderer>(mRenderEngine);
-        mPathTracer = std::make_unique<PathTracer>(mRenderEngine);
+        mPathTracer = std::make_shared<PathTracer>(mRenderEngine);
+        mUIRenderer = std::make_unique<UIRenderer>(mRenderEngine, mPathTracer);
         mInited = true;
     }
 

@@ -141,10 +141,7 @@ namespace APT {
 		};
 		DX::ThrowIfFailed(mRenderEngine->Device()->GetDevice()->CreatePipelineState(&pipelineStateStreamDesc, IID_PPV_ARGS(&m_PipelineState)));
 
-		DX::Tex2DInfo DSInfo(DX::ResourceState::DepthWrite, DX::ResourceFormat::Depth32, mRenderEngine->GetWidth(), mRenderEngine->GetHeight(), DX::ResourceFlag::AllowDS);
-		mRenderEngine->Device()->CreateCommittedResource(DX::HeapType::Default, DSInfo, *mDepthBuffer);
-
-		mDSVHeap->CreateDepthStencilView(*mDepthBuffer, *mRenderEngine->Device());
+		Resize();
 
 		mRenderEngine->ExcecuteAndWait();
 
@@ -152,12 +149,92 @@ namespace APT {
 		const DirectX::XMVECTOR eyePosition = DirectX::XMVectorSet(0, 0, -10, 1);
 		const DirectX::XMVECTOR focusPoint = DirectX::XMVectorSet(0, 0, 0, 1);
 		const DirectX::XMVECTOR upDirection = DirectX::XMVectorSet(0, 1, 0, 0);
-		m_ViewMatrix = DirectX::XMMatrixLookAtLH(eyePosition, focusPoint, upDirection);
+		// m_ViewMatrix = DirectX::XMMatrixLookAtLH(eyePosition, focusPoint, upDirection);
 
 		float aspectRatio = mRenderEngine->GetWidth() / static_cast<float>(mRenderEngine->GetHeight());
-		m_ProjectionMatrix = GetProjMatrix();
-		// DirectX::XMMATRIX compareee = DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(mFov), aspectRatio, 0.1f, 100.0f);
-		m_ModelMatrix = DirectX::XMMatrixIdentity();
+		// m_ProjectionMatrix = GetProjMatrix();
+		// m_ModelMatrix = DirectX::XMMatrixIdentity();
+	}
+
+	bool PreviewRenderer::HandleMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+	{
+		if (CameraControl(hwnd, message, wParam, lParam)) {
+			return true;
+		}
+		switch (message) {
+		case WM_EXITSIZEMOVE:
+			Resize();
+		}
+		return false;
+	}
+
+	bool PreviewRenderer::CameraControl(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+	{
+		if (UIMouseCatured()) {
+			return false;
+		}
+		static bool W_Pressed = false;
+		static bool S_Pressed = false;
+		static bool A_Pressed = false;
+		static bool D_Pressed = false;
+		static bool Q_Pressed = false;
+		static bool E_Pressed = false;
+
+		Vec3f frontDirection = Normalize(mCamera->GetTarget() - mCamera->GetPosition());
+		Vec3f rightDirection = Cross(frontDirection, mCamera->GetUp());
+		Vec3f upDirection = mCamera->GetUp();
+		Vec3f camTarget = mCamera->GetTarget();
+		Vec3f camPosition = mCamera->GetPosition();
+
+		switch (message) {
+		case WM_MOUSEMOVE:
+		{
+			Vec2i pos = Vec2i(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+			static int lastX = pos.x;
+			static int lastY = pos.y;
+
+			switch (wParam) {
+			case MK_LBUTTON:
+				float hor_r = static_cast<float>(pos.x - lastX) / static_cast<float>(mRenderEngine->GetWidth()) * 150.f;
+				float ver_r = static_cast<float>(pos.y - lastY) / -static_cast<float>(mRenderEngine->GetHeight()) * 150.f;
+				Vec3f relativePos = camPosition - camTarget;
+				Transform rotation = Transform::RotateAroundY(hor_r);
+				rotation *= Transform::RotateAround(rightDirection, ver_r);
+				Vec3f newPos = camTarget + rotation(relativePos);
+				mCamera->SetPosition(newPos);
+			}
+
+			lastX = pos.x;
+			lastY = pos.y;
+		}
+		case WM_KEYDOWN:
+			switch (wParam) {
+			case 0x57:
+				// W
+				W_Pressed = true;
+				// mCamera->SetPosition(0.2f * Normalize(mCamera->GetTarget() - mCamera->GetPosition()) + mCamera->GetPosition());
+			case 0x53:
+				// S
+				S_Pressed = true;
+			}
+		case WM_KEYUP:
+			switch (wParam) {
+			case 0x57:
+				// W
+				W_Pressed = false;
+				// mCamera->SetPosition(0.2f * Normalize(mCamera->GetTarget() - mCamera->GetPosition()) + mCamera->GetPosition());
+			case 0x53:
+				// S
+				S_Pressed = false;
+			}
+		
+		}
+		
+		if (W_Pressed) {
+			mCamera->SetPosition(0.2f * frontDirection + camPosition);
+			mCamera->SetTarget(0.2f * frontDirection + camTarget);
+		}
+		return false;
 	}
 
 
@@ -178,11 +255,19 @@ namespace APT {
 		CD3DX12_CPU_DESCRIPTOR_HANDLE rtv = mRenderEngine->DescriptorHeap()->GetCPUDescriptorHandle(mRenderEngine->GetCurrentBufferIndex());
 		mRenderEngine->CommandList()->GetCommandList()->OMSetRenderTargets(1, &rtv, FALSE, &dsv);
 
-		DirectX::XMMATRIX mvpMatrix = DirectX::XMMatrixMultiply(m_ModelMatrix, GetViewMatrix());
-		mvpMatrix = DirectX::XMMatrixMultiply(mvpMatrix, m_ProjectionMatrix);
+		DirectX::XMMATRIX mvpMatrix = DirectX::XMMatrixMultiply(DirectX::XMMatrixIdentity(), GetViewMatrix());
+		mvpMatrix = DirectX::XMMatrixMultiply(mvpMatrix, GetProjMatrix());
 		mRenderEngine->CommandList()->GetCommandList()->SetGraphicsRoot32BitConstants(0, sizeof(DirectX::XMMATRIX) / 4, &mvpMatrix, 0);
 
 		mRenderEngine->CommandList()->GetCommandList()->DrawIndexedInstanced(36, 1, 0, 0, 0);
+	}
+
+	void PreviewRenderer::Resize()
+	{
+		DX::Tex2DInfo DSInfo(DX::ResourceState::DepthWrite, DX::ResourceFormat::Depth32, mRenderEngine->GetWidth(), mRenderEngine->GetHeight(), DX::ResourceFlag::AllowDS);
+		mRenderEngine->Device()->CreateCommittedResource(DX::HeapType::Default, DSInfo, *mDepthBuffer);
+		mDSVHeap->CreateDepthStencilView(*mDepthBuffer, *mRenderEngine->Device());
+		mViewport = CD3DX12_VIEWPORT(0.0f, 0.0f, static_cast<float>(mRenderEngine->mClientWidth), static_cast<float>(mRenderEngine->mClientHeight));
 	}
 
 	DirectX::XMMATRIX PreviewRenderer::GetViewMatrix()

@@ -19,6 +19,14 @@ namespace APT {
 	{
 		return mUp;
 	}
+	void Camera::SetPosition(Vec3f pos)
+	{
+		mPostion = pos;
+	}
+	void Camera::SetTarget(Vec3f target)
+	{
+		mTarget = target;
+	}
 	CameraType Camera::GetType() const
 	{
 		return mType;

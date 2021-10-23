@@ -14,6 +14,8 @@ namespace APT {
 		Vec3f GetPosition() const;
 		Vec3f GetTarget() const;
 		Vec3f GetUp() const;
+		void SetPosition(Vec3f pos);
+		void SetTarget(Vec3f target);
 		CameraType GetType() const;
 		
 	protected:

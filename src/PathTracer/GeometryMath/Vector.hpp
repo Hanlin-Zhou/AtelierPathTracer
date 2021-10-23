@@ -10,7 +10,7 @@ namespace Math {
 		Vec2() { x = y = 0; }
 		Vec2(T xx, T yy) : x(xx), y(yy)
 		{
-			assert(!HasNaNs());
+			// assert(!HasNaNs());
 		}
 
 		bool HasNaNs() const {

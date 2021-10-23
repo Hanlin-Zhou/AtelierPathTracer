@@ -100,10 +100,31 @@ namespace APT {
 	{
 		float sinTheta = std::sin(ToRadian(theta));
 		float cosTheta = std::cos(ToRadian(theta));
-		Mat4 m(1, 0, 0, 0,
-			cosTheta, -sinTheta, 0, 0,
+		Mat4 m(cosTheta, -sinTheta, 0, 0,
 			sinTheta, cosTheta, 0, 0,
+			0, 0, 1, 0,
 			0, 0, 0, 1);
+		return Transform(m, Mat4::Transpose(m));
+	}
+
+	Transform Transform::RotateAround(const Vec3f& axis, float theta)
+	{
+		Vec3f a = Normalize(axis);
+		float sinTheta = std::sin(ToRadian(theta));
+		float cosTheta = std::cos(ToRadian(theta));
+		Mat4 m;
+		m.m[0][0] = a.x * a.x + (1 - a.x * a.x) * cosTheta;
+		m.m[0][1] = a.x * a.y * (1 - cosTheta) - a.z * sinTheta;
+		m.m[0][2] = a.x * a.z * (1 - cosTheta) + a.y * sinTheta;
+		m.m[0][3] = 0;
+		m.m[1][0] = a.x * a.y * (1 - cosTheta) + a.z * sinTheta;
+		m.m[1][1] = a.y * a.y + (1 - a.y * a.y) * cosTheta;
+		m.m[1][2] = a.y * a.z * (1 - cosTheta) - a.x * sinTheta;
+		m.m[1][3] = 0;
+		m.m[2][0] = a.x * a.z * (1 - cosTheta) - a.y * sinTheta;
+		m.m[2][1] = a.y * a.z * (1 - cosTheta) + a.x * sinTheta;
+		m.m[2][2] = a.z * a.z + (1 - a.z * a.z) * cosTheta;
+		m.m[2][3] = 0;
 		return Transform(m, Mat4::Transpose(m));
 	}
 
@@ -198,13 +219,20 @@ namespace APT {
 			Mat4::Mul(t2.mInv, mInv));
 	}
 
-	template<typename T>
+	Transform& Transform::operator*=(const Transform& t2) 
+	{
+		m = Mat4::Mul(m, t2.m);
+		mInv = Mat4::Mul(t2.mInv, mInv);
+		return *this;
+	}
+
+	/*template<typename T>
 	Vec3<T> Transform::operator()(const Vec3<T>& v) const
 	{
 		T x = v.x, y = v.y, z = v.z;
 		return Vec3<T>(m.m[0][0] * x + m.m[0][1] * y + m.m[0][2] * z,
 			m.m[1][0] * x + m.m[1][1] * y + m.m[1][2] * z,
 			m.m[2][0] * x + m.m[2][1] * y + m.m[2][2] * z);
-	}
+	}*/
 
 }

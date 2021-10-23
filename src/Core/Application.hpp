@@ -7,7 +7,7 @@
 #include <iostream>
 #include <Core/RenderEngine.hpp>
 #include <Core/UIRenderer.hpp>
-#include <PathTracer/PathTracer.hpp>
+#include <PathTracer/Core/PathTracer.hpp>
 
 namespace APT {
 	class Application {
@@ -22,13 +22,13 @@ namespace APT {
 	private:
 		HWND mHWND;
 		HINSTANCE mHINSTANCE;
-		uint32_t mDefaultClientWidth = 1280;
-		uint32_t mDefaultClientHeight = 720;
+		uint32_t mDefaultClientWidth = 1920;
+		uint32_t mDefaultClientHeight = 1080;
 
 		bool mInited = false;
 		std::shared_ptr <RenderEngine>  mRenderEngine;
 		std::unique_ptr <UIRenderer>  mUIRenderer;
-		std::unique_ptr <PathTracer>  mPathTracer;
+		std::shared_ptr <PathTracer>  mPathTracer;
 		
 
 		void CreateApplicationWindow();

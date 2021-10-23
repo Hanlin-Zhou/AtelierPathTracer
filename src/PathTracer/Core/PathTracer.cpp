@@ -9,6 +9,9 @@ namespace APT {
 
 	bool PathTracer::HandleMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
+		if (mPreviewRenderer->HandleMessage(hwnd, message, wParam, lParam)) {
+			return true;
+		}
 		return false;
 	}
 

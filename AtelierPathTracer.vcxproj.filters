@@ -72,6 +72,30 @@
     <Filter Include="Source Files\PathTracer\Media">
       <UniqueIdentifier>{d366e224-da79-4ad0-8759-1b90ea98575a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\PathTracer\Scene">
+      <UniqueIdentifier>{90802d4a-ab37-472a-ae10-bb4fa2d7bfe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathTracer\Scene">
+      <UniqueIdentifier>{568b0d85-15f2-4113-8b31-d4c665601e00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PathTracer\Shape">
+      <UniqueIdentifier>{0556e762-68d8-49ea-a563-6619858006d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathTracer\Shape">
+      <UniqueIdentifier>{47725e97-48b5-433b-94bd-b0f7684d29c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PathTracer\Acceleration">
+      <UniqueIdentifier>{d10e4120-3e96-4d93-bb81-9fa8f0bebd38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathTracer\Acceleration">
+      <UniqueIdentifier>{dc04c057-a488-4379-8d3e-8f23f9e62917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PathTracer\Core">
+      <UniqueIdentifier>{0f42625e-3c16-46d8-849f-dcfe8d86a5df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathTracer\Core">
+      <UniqueIdentifier>{e19be5f2-2e22-44d8-80cd-e48841fd1b72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -152,12 +176,6 @@
     <ClCompile Include="src\GraphicAPI\ResourceInfo.cpp">
       <Filter>Source Files\GraphicAPI</Filter>
     </ClCompile>
-    <ClCompile Include="src\PathTracer\PathTracer.cpp">
-      <Filter>Source Files\PathTracer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PathTracer\PreviewRenderer.cpp">
-      <Filter>Source Files\PathTracer</Filter>
-    </ClCompile>
     <ClCompile Include="src\GraphicAPI\Shader.cpp">
       <Filter>Source Files\GraphicAPI</Filter>
     </ClCompile>
@@ -184,6 +202,39 @@
     </ClCompile>
     <ClCompile Include="src\PathTracer\GeometryMath\Transform.cpp">
       <Filter>Source Files\PathTracer\GeometryMath</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Shape\Shape.cpp">
+      <Filter>Source Files\PathTracer\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Shape\TriangleMesh.cpp">
+      <Filter>Source Files\PathTracer\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Shape\Triangle.cpp">
+      <Filter>Source Files\PathTracer\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Core\PathTracer.cpp">
+      <Filter>Source Files\PathTracer\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Core\PreviewRenderer.cpp">
+      <Filter>Source Files\PathTracer\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Core\SceneLoader.cpp">
+      <Filter>Source Files\PathTracer\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Scene\Scene.cpp">
+      <Filter>Source Files\PathTracer\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Acceleration\Primitive.cpp">
+      <Filter>Source Files\PathTracer\Acceleration</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Acceleration\GeometricPrimitive.cpp">
+      <Filter>Source Files\PathTracer\Acceleration</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\UIFileMenu.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\UIHandleInput.cpp">
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,12 +328,6 @@
     <ClInclude Include="src\GraphicAPI\PipelineState.hpp">
       <Filter>Header Files\GraphicAPI</Filter>
     </ClInclude>
-    <ClInclude Include="src\PathTracer\PathTracer.hpp">
-      <Filter>Header Files\PathTracer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PathTracer\PreviewRenderer.hpp">
-      <Filter>Header Files\PathTracer</Filter>
-    </ClInclude>
     <ClInclude Include="src\GraphicAPI\Shader.hpp">
       <Filter>Header Files\GraphicAPI</Filter>
     </ClInclude>
@@ -318,6 +363,39 @@
     </ClInclude>
     <ClInclude Include="src\PathTracer\Camera\CameraType.hpp">
       <Filter>Header Files\PathTracer\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Shape\Shape.hpp">
+      <Filter>Header Files\PathTracer\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Shape\TriangleMesh.hpp">
+      <Filter>Header Files\PathTracer\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Shape\Triangle.hpp">
+      <Filter>Header Files\PathTracer\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Core\PathTracer.hpp">
+      <Filter>Header Files\PathTracer\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Core\PreviewRenderer.hpp">
+      <Filter>Header Files\PathTracer\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Core\SceneLoader.hpp">
+      <Filter>Header Files\PathTracer\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Scene\Scene.hpp">
+      <Filter>Header Files\PathTracer\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Acceleration\Primitive.hpp">
+      <Filter>Header Files\PathTracer\Acceleration</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Acceleration\GeometricPrimitive.hpp">
+      <Filter>Header Files\PathTracer\Acceleration</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\UIFileMenu.hpp">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\UIHandleInput.hpp">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

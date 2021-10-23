@@ -22,6 +22,7 @@ namespace APT {
 		static Transform RotateAroundX(float theta);
 		static Transform RotateAroundY(float theta);
 		static Transform RotateAroundZ(float theta);
+		static Transform RotateAround(const Vec3f& axis, float theta);
 		static Transform Rotate(float Xtheta, float Ytheta, float Ztheta);
 		static Transform Rotate(const Vec3f& theta);
 
@@ -32,9 +33,15 @@ namespace APT {
 		static Transform Transpose(const Transform& t);
 
 		Transform operator*(const Transform& t2) const;
+		Transform& operator*= (const Transform& t2) ;
 
 		template <typename T>
-		Vec3<T> operator()(const Vec3<T>& v) const;
+		Vec3<T> operator()(const Vec3<T>& v) const {
+			T x = v.x, y = v.y, z = v.z;
+			return Vec3<T>(m.m[0][0] * x + m.m[0][1] * y + m.m[0][2] * z,
+				m.m[1][0] * x + m.m[1][1] * y + m.m[1][2] * z,
+				m.m[2][0] * x + m.m[2][1] * y + m.m[2][2] * z);
+		}
 
 		// friend Transform Inverse(const Transform& t);
 		// friend Transform Transpose(const Transform& t);

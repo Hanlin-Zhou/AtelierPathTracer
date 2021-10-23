@@ -2,7 +2,7 @@
 
 namespace APT {
 	PerspectiveCamera::PerspectiveCamera():
-		ProjectiveCamera(Vec3f(0.f, -10.f, -10.f), Vec3f(0.f, 0.f, 0.f), Vec3f(0.f, 1.f, 0.f), Transform::Perspective(45.f, 0.1f, 100.f), Bounds2f(), 0.f, 0.f, nullptr, nullptr, CameraType::Perspective, 0.f, 0.f)
+		ProjectiveCamera(Vec3f(0.f, 0.f, -10.f), Vec3f(0.f, 0.f, 0.f), Vec3f(0.f, 1.f, 0.f), Transform::Perspective(45.f, 0.1f, 100.f), Bounds2f(), 0.f, 0.f, nullptr, nullptr, CameraType::Perspective, 0.f, 0.f)
 	{
 		mFov = 45.f;
 		mNear = 0.1f;

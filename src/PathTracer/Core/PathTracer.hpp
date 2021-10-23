@@ -1,5 +1,5 @@
 #pragma once
-#include <PathTracer/PreviewRenderer.hpp>
+#include <PathTracer/Core/PreviewRenderer.hpp>
 #include <memory>
 
 namespace APT {

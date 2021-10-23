@@ -1,16 +1,15 @@
 #include "UIRenderer.hpp"
 
 namespace APT {
-	UIRenderer::UIRenderer(std::shared_ptr<RenderEngine> renderengine)
+	UIRenderer::UIRenderer(std::shared_ptr<RenderEngine> renderengine, std::shared_ptr<PathTracer> pathtracer)
 	{
 		mHideUI = false;
 		mRenderEngine = renderengine;
+		mPathTracer = pathtracer;
 		mUIDescriptorHeap = std::make_unique<DX::ShaderDescriptorHeap>(*mRenderEngine->mDevice.get(), 1);
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO();
-		(void)io;
-		ImGui::StyleColorsDark();
+		LoadStyle();
 		ImGui_ImplWin32_Init(mRenderEngine->mHWND);
 		ImGui_ImplDX12_Init(mRenderEngine->mDevice->GetDevice(), mRenderEngine->mNumFrames, DXGI_FORMAT_R8G8B8A8_UNORM, mUIDescriptorHeap->GetDescriptorHeap(),
 			mUIDescriptorHeap->GetDescriptorHeap()->GetCPUDescriptorHandleForHeapStart(),
@@ -24,6 +23,7 @@ namespace APT {
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 		// test
+		RenderMenuBar();
 		{
 			static int counter = 0;
 
@@ -58,6 +58,20 @@ namespace APT {
 		ImGui_ImplDX12_Shutdown();
 		ImGui_ImplWin32_Shutdown();
 		ImGui::DestroyContext();
+	}
+
+	void UIRenderer::LoadStyle()
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		ImGui::StyleColorsDark();
+		io.Fonts->AddFontFromFileTTF("Resource/Font/calibril.ttf", 16);
+	}
+
+	void UIRenderer::RenderMenuBar()
+	{
+		ImGui::BeginMainMenuBar();
+		UI::FileMenu(mPathTracer);
+		ImGui::EndMainMenuBar();
 	}
 
 

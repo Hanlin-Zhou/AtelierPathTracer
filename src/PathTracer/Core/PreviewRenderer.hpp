@@ -1,7 +1,9 @@
 #pragma once
+#include <Windowsx.h>
 #include <Core/RenderEngine.hpp>
 #include <GraphicAPI/Shader.hpp>
 #include <PathTracer/Camera/PerspectiveCamera.hpp>
+#include <UI/UIHandleInput.hpp>
 #include <directxmath.h>
 // to be deleted
 
@@ -11,6 +13,9 @@ namespace APT {
 	class PreviewRenderer {
 	public:
 		PreviewRenderer(std::shared_ptr<RenderEngine> renderengine, std::shared_ptr<Camera> camera);
+		bool HandleMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+		bool CameraControl(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+		void Resize();
 		void Render();
 	private:
 		std::unique_ptr<DX::Resource> mVertexBuffer;
