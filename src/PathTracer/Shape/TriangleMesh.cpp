@@ -1,16 +1,13 @@
 #include "TriangleMesh.hpp"
 namespace APT {
-	TriangleMesh::TriangleMesh(const Transform& ObjectToWorld, int numTriangle, const int* vertexIndices, int numVertices, const int* vertexPoints, const int* tangent, const int* normal, const int* uv)
-		:mNumTriangle(numTriangle), mNumVertice(numVertices), mVertexIndices(vertexIndices, vertexIndices + 3 * numTriangle)
+	TriangleMesh::TriangleMesh(const Transform& ObjectToWorld, int numTriangle, std::vector<unsigned int> vertexIndices, int numVertices, std::vector<Vec3f> vertexPoints,
+		std::vector<Vec3f> tangent, std::vector<Vec3f> normal, std::vector<Vec2f> uv)
+		:mNumTriangle(numTriangle), mNumVertice(numVertices)
 	{
-		if (tangent) {
-			mTangent.reset(new Vec3f[mNumVertice]);
-		}
-		if (normal) {
-			mNormal.reset(new Vec3f[mNumVertice]);
-		}
-		if (uv) {
-			mUV.reset(new Vec3f[mNumVertice]);
-		}
+		mVertexIndices = vertexIndices;
+		mVertex = vertexPoints;
+		mTangent = tangent;
+		mNormal = normal;
+		mUV = uv;
 	}
 }

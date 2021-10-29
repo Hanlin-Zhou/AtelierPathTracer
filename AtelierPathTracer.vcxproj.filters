@@ -96,6 +96,9 @@
     <Filter Include="Source Files\PathTracer\Core">
       <UniqueIdentifier>{e19be5f2-2e22-44d8-80cd-e48841fd1b72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Includes\tinyfiledialogs">
+      <UniqueIdentifier>{f4f18d25-287a-4c6d-82cb-db75f21e3649}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -235,6 +238,27 @@
     </ClCompile>
     <ClCompile Include="src\UI\UIHandleInput.cpp">
       <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GraphicAPI\RootParameter.cpp">
+      <Filter>Source Files\GraphicAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Acceleration\SceneAggregate.cpp">
+      <Filter>Source Files\PathTracer\Acceleration</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Acceleration\Model.cpp">
+      <Filter>Source Files\PathTracer\Acceleration</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Acceleration\Mesh.cpp">
+      <Filter>Source Files\PathTracer\Acceleration</Filter>
+    </ClCompile>
+    <ClCompile Include="include\tinyfiledialogs\tinyfiledialogs.cpp">
+      <Filter>Includes\tinyfiledialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GraphicAPI\VertexBufferView.cpp">
+      <Filter>Source Files\GraphicAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GraphicAPI\IndexBufferView.cpp">
+      <Filter>Source Files\GraphicAPI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -396,6 +420,39 @@
     </ClInclude>
     <ClInclude Include="src\UI\UIHandleInput.hpp">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\ShaderVisibilityFlag.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\RootParameter.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\RootSignatureFlag.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\TopologyType.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Acceleration\SceneAggregate.hpp">
+      <Filter>Header Files\PathTracer\Acceleration</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Acceleration\Model.hpp">
+      <Filter>Header Files\PathTracer\Acceleration</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Acceleration\Mesh.hpp">
+      <Filter>Header Files\PathTracer\Acceleration</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tinyfiledialogs\tinyfiledialogs.h">
+      <Filter>Includes\tinyfiledialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\VertexBufferView.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\IndexBufferView.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicAPI\InputElement.hpp">
+      <Filter>Header Files\GraphicAPI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

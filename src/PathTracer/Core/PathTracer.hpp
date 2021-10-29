@@ -1,5 +1,6 @@
 #pragma once
 #include <PathTracer/Core/PreviewRenderer.hpp>
+#include <PathTracer/Core/SceneLoader.hpp>
 #include <memory>
 
 namespace APT {
@@ -10,10 +11,14 @@ namespace APT {
 		bool HandleMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 		void RenderPreview();
-	private:
+	
 		std::shared_ptr<Camera> mCamera;
 
-		std::unique_ptr<PreviewRenderer> mPreviewRenderer;
+		std::shared_ptr<Scene> mScene;
+
+		std::shared_ptr<PreviewRenderer> mPreviewRenderer;
+
+		std::unique_ptr<SceneLoader> mSceneLoader;
 
 	};
 }

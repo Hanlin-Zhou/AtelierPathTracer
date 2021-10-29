@@ -5,18 +5,18 @@
 namespace APT {
 	class TriangleMesh {
 	public:
-		TriangleMesh(const Transform& ObjectToWorld, int numTriangle, const int* vertexIndices, int numVertices, const int* vertexPoints, const int* tangent, const int* normal, const int* uv);
+		TriangleMesh(const Transform& ObjectToWorld, int numTriangle, std::vector<unsigned int> vertexIndices, int numVertices, std::vector<Vec3f> vertexPoints, std::vector<Vec3f> tangent, std::vector<Vec3f> normal, std::vector<Vec2f> uv);
 
 		// Member 
 		const int mNumTriangle;
 		const int mNumVertice;
 
 		
-		std::vector<int> mVertexIndices;
-		std::unique_ptr<Vec3f[]> mVertex;
-		std::unique_ptr<Vec3f[]> mNormal;
-		std::unique_ptr<Vec3f[]> mTangent;
-		std::unique_ptr<Vec3f[]> mUV;
+		std::vector<unsigned int> mVertexIndices;
+		std::vector<Vec3f> mVertex;
+		std::vector<Vec3f> mNormal;
+		std::vector<Vec3f> mTangent;
+		std::vector<Vec2f> mUV;
 
 	};
 }

@@ -73,11 +73,15 @@ namespace APT {
     }
 
 
-    void RenderEngine::UpdateSubresources(ID3D12Resource* dest, ID3D12Resource* intermediate, D3D12_SUBRESOURCE_DATA* data) const
+    void RenderEngine::UpdateSubresources(const DX::Resource& dest, const DX::Resource& intermediate, void* dataPtr, UINT size) const
     {
+        D3D12_SUBRESOURCE_DATA data = {};
+        data.pData = dataPtr;
+        data.RowPitch = size;
+        data.SlicePitch = data.RowPitch;
         ::UpdateSubresources(mCommandList->GetCommandList(),
-            dest, intermediate,
-            0, 0, 1, data);
+            dest.GetResource(), intermediate.GetResource(),
+            0, 0, 1, &data);
     }
 
     void RenderEngine::ClearDepth(DX::DSVDescriptorHeap dsv)

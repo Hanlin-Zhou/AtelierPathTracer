@@ -2,8 +2,10 @@
 namespace APT {
 	PathTracer::PathTracer(std::shared_ptr<RenderEngine> renderengine)
 	{
+		mScene = std::make_shared<Scene>();
 		mCamera = std::make_shared<PerspectiveCamera>();
-		mPreviewRenderer = std::make_unique<PreviewRenderer>(renderengine, mCamera);
+		mPreviewRenderer = std::make_shared<PreviewRenderer>(renderengine, mCamera);
+		mSceneLoader = std::make_unique<SceneLoader>(mScene, mPreviewRenderer);
 		
 	}
 
@@ -18,6 +20,6 @@ namespace APT {
 
 	void PathTracer::RenderPreview()
 	{
-		mPreviewRenderer->Render();
+		mPreviewRenderer->RenderScene(*mScene);
 	}
 }

@@ -22,7 +22,7 @@ namespace APT {
 		void ClearScreen();
 		void Present();
 		void ShutDown();
-		void UpdateSubresources(ID3D12Resource* dest, ID3D12Resource* intermediate, D3D12_SUBRESOURCE_DATA* data) const;
+		void UpdateSubresources(const DX::Resource &dest, const DX::Resource &intermediate, void* data, UINT size) const;
 		void ClearDepth(DX::DSVDescriptorHeap dsv);
 		void Record();
 		void ExcecuteAndWait();

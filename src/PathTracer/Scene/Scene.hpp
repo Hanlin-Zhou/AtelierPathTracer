@@ -1,10 +1,11 @@
 #pragma once
-#include <PathTracer/Acceleration/Primitive.hpp>
+#include <PathTracer/Acceleration/SceneAggregate.hpp>
 
 namespace APT {
 	class Scene {
 	public:
-		Scene()
+		Scene();
 
+		std::shared_ptr<SceneAggregate> aggregate;
 	};
 }

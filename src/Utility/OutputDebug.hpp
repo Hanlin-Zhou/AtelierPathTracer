@@ -1,4 +1,7 @@
 #pragma once
+#include <Windows.h>
+#include <string>
+
 namespace APT {
-	void DebugOut();
+	void DebugOut(std::string string);
 }
