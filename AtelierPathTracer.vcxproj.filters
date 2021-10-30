@@ -99,6 +99,30 @@
     <Filter Include="Includes\tinyfiledialogs">
       <UniqueIdentifier>{f4f18d25-287a-4c6d-82cb-db75f21e3649}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\PathTracer\Ray">
+      <UniqueIdentifier>{1ab4b394-daf2-4bc6-826f-0a012f1e24c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PathTracer\Ray">
+      <UniqueIdentifier>{9c763946-1dc7-41d2-bd2f-b4b5191abc7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathTracer\Interaction">
+      <UniqueIdentifier>{2e3fe3bf-14c9-4a1d-a256-1ad1b9c33c81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PathTracer\Interaction">
+      <UniqueIdentifier>{40adedc5-ba67-4cfd-b000-6af42568a3e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PathTracer\Integrator">
+      <UniqueIdentifier>{0f103c34-608a-4c88-93f5-e03d6f3abec2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathTracer\Integrator">
+      <UniqueIdentifier>{2f37df6a-d4b1-4d60-a7a7-13865f516897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PathTracer\Sampler">
+      <UniqueIdentifier>{18ebac20-35d9-4f55-b7be-9f4492d6e263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathTracer\Sampler">
+      <UniqueIdentifier>{e933405d-a8fc-41a8-9af8-1207b812b508}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -259,6 +283,27 @@
     </ClCompile>
     <ClCompile Include="src\GraphicAPI\IndexBufferView.cpp">
       <Filter>Source Files\GraphicAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Ray\Ray.cpp">
+      <Filter>Source Files\PathTracer\Ray</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Ray\RayDifferential.cpp">
+      <Filter>Source Files\PathTracer\Ray</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Interaction\Interaction.cpp">
+      <Filter>Source Files\PathTracer\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Interaction\SurfaceInteraction.cpp">
+      <Filter>Source Files\PathTracer\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Integrator\Integrator.cpp">
+      <Filter>Source Files\PathTracer\Integrator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Integrator\SamplerIntegrator.cpp">
+      <Filter>Source Files\PathTracer\Integrator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Sampler\Sampler.cpp">
+      <Filter>Source Files\PathTracer\Sampler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -453,6 +498,27 @@
     </ClInclude>
     <ClInclude Include="src\GraphicAPI\InputElement.hpp">
       <Filter>Header Files\GraphicAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Ray\Ray.hpp">
+      <Filter>Header Files\PathTracer\Ray</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Ray\RayDifferential.hpp">
+      <Filter>Header Files\PathTracer\Ray</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Interaction\Interaction.hpp">
+      <Filter>Header Files\PathTracer\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Interaction\SurfaceInteraction.hpp">
+      <Filter>Header Files\PathTracer\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Integrator\Integrator.hpp">
+      <Filter>Header Files\PathTracer\Integrator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Integrator\SamplerIntegrator.hpp">
+      <Filter>Header Files\PathTracer\Integrator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Sampler\Sampler.hpp">
+      <Filter>Header Files\PathTracer\Sampler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -45,9 +45,19 @@ namespace APT {
 		std::shared_ptr<RenderEngine> mRenderEngine;
 		std::shared_ptr<Camera> mCamera;
 
+		struct KeyInput {
+			bool W = false;
+			bool S = false;
+			bool A = false;
+			bool D = false;
+			bool Rise = false;
+			bool Lower = false;
+		} mKeyInput;
+
 		DirectX::XMMATRIX GetViewMatrix();
 		DirectX::XMMATRIX GetProjMatrix();
 
 		void RenderModel(Model& model);
+		void CameraWalk();
 	};
 }

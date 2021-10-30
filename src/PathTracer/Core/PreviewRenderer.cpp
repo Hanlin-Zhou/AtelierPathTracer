@@ -167,6 +167,7 @@ namespace APT {
 
 	void PreviewRenderer::RenderScene(const Scene& scene)
 	{
+		CameraWalk();
 		mRenderEngine->ClearDepth(*mDSVHeap);
 		mRenderEngine->CommandList()->GetCommandList()->SetPipelineState(mPipelineState->GetPiplelineState().Get());
 		mRenderEngine->CommandList()->GetCommandList()->SetGraphicsRootSignature(mRootSignature->GetRootSignature().Get());
@@ -254,34 +255,94 @@ namespace APT {
 			switch (wParam) {
 			case 0x57:
 				// W
-				W_Pressed = true;
-				// mCamera->SetPosition(0.2f * Normalize(mCamera->GetTarget() - mCamera->GetPosition()) + mCamera->GetPosition());
+				mKeyInput.W = true;
+				break;
 			case 0x53:
 				// S
-				S_Pressed = true;
-			}
+				mKeyInput.S = true;
+				break;
+			case 0x41:
+				// A
+				mKeyInput.A = true;
+				break;
+			case 0x44:
+				// A
+				mKeyInput.D = true;
+				break;
+			case 0x10:
+				// Rise
+				mKeyInput.Rise = true;
+				break;
+			case 0x11:
+				// Lower
+				mKeyInput.Lower = true;
+				break;
+			}break;
 		case WM_KEYUP:
 			switch (wParam) {
 			case 0x57:
 				// W
-				W_Pressed = false;
-				// mCamera->SetPosition(0.2f * Normalize(mCamera->GetTarget() - mCamera->GetPosition()) + mCamera->GetPosition());
+				mKeyInput.W = false;
+				break;
 			case 0x53:
 				// S
-				S_Pressed = false;
-			}
+				mKeyInput.S = false;
+				break;
+			case 0x41:
+				// A
+				mKeyInput.A = false;
+				break;
+			case 0x44:
+				// D
+				mKeyInput.D = false;
+				break;
+			case 0x10:
+				// Rise
+				mKeyInput.Rise = false;
+				break;
+			case 0x11:
+				// Lower
+				mKeyInput.Lower = false;
+				break;
+			}break;
 		
-		}
-		
-		if (W_Pressed) {
-			OutputDebugString(L"W");
-			mCamera->SetPosition(0.2f * frontDirection + camPosition);
-			mCamera->SetTarget(0.2f * frontDirection + camTarget);
 		}
 		return false;
 	}
 
 
+	void PreviewRenderer::CameraWalk()
+	{
+		Vec3f frontDirection = Normalize(mCamera->GetTarget() - mCamera->GetPosition());
+		Vec3f rightDirection = Cross(frontDirection, mCamera->GetUp());
+		Vec3f upDirection = mCamera->GetUp();
+		Vec3f camTarget = mCamera->GetTarget();
+		Vec3f camPosition = mCamera->GetPosition();
+		if (mKeyInput.W) {
+			mCamera->SetPosition(0.1f * frontDirection + camPosition);
+			mCamera->SetTarget(0.1f * frontDirection + camTarget);
+		}
+		else if (mKeyInput.S) {
+			mCamera->SetPosition(-0.1f * frontDirection + camPosition);
+			mCamera->SetTarget(-0.1f * frontDirection + camTarget);
+		}
+		if (mKeyInput.A) {
+			mCamera->SetPosition(0.1f * rightDirection + camPosition);
+			mCamera->SetTarget(0.1f * rightDirection + camTarget);
+		}
+		else if (mKeyInput.D) {
+			mCamera->SetPosition(-0.1f * rightDirection + camPosition);
+			mCamera->SetTarget(-0.1f * rightDirection + camTarget);
+		}
+		if (mKeyInput.Rise) {
+			mCamera->SetPosition(0.1f * upDirection + camPosition);
+			mCamera->SetTarget(0.1f * upDirection + camTarget);
+		}
+		else if (mKeyInput.Lower) {
+			mCamera->SetPosition(-0.1f * upDirection + camPosition);
+			mCamera->SetTarget(-0.1f * upDirection + camTarget);
+		}
+	}
 	
 
 	void PreviewRenderer::Resize()
