@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector.hpp"
 #include "MathHelper.hpp"
+#include <PathTracer/Ray/Ray.hpp>
 
 namespace Math {
 	template <typename T> class Bounds2 {
@@ -136,11 +137,58 @@ namespace Math {
 			return o;
 		}
 
+		inline bool IntersectP(const APT::Ray& ray, float* hitt0 = nullptr, float* hitt1 = nullptr) const;
+
+		inline bool IntersectP(const APT::Ray& ray, const Vec3f& inv, const int negative[3]) const;
 		// Members
 		Vec3<T> pMin;
 		Vec3<T> pMax;
 	};
 	
+	template <typename T>
+	inline bool Bounds3<T>::IntersectP(const APT::Ray& ray, float* hitt0, float* hitt1) const {
+		float t0 = 0.0, t1 = ray.mMaxTime;
+		for (int i = 0; i < 3; i++)
+		{
+			float inv = 1.0 / ray.d[i];
+			float tNear = (pMin[i] - ray.o[i]) * inv;
+			float tFar = (pMax[i] - ray.o[i]) * inv;
+			if (tNear > tFar) std::swap(tNear, tFar);
+			t0 = tNear > t0 ? tNear : t0;
+			t1 = tFar < t1 ? tFar : t1;
+			if (t0 > t1) return false;
+		}
+		if (hitt0) *hitt0 = t0;
+		if (hitt1) *hitt1 = t1;
+		return true;
+	}
+
+	template<typename T>
+	inline bool Bounds3<T>::IntersectP(const APT::Ray& ray, const Vec3f& inv, const int negative[3]) const
+	{
+		const Bounds3f& bounds = *this;
+		float txMin = (bounds[negative[0]].x - ray.o.x) * inv.x;
+		float txMax = (bounds[1 - negative[0]].x - ray.o.x) * inv.x;
+		float tyMin = (bounds[negative[1]].y - ray.o.y) * inv.y;
+		float tyMax = (bounds[1 - negative[1]].y - ray.o.y) * inv.y;
+		if (txMin > tyMax || tyMin > txMax)
+			return false;
+		if (tyMin > tMin) tMin = tyMin;
+		if (tyMax < tMax) tMax = tyMax;
+
+		float tzMin = (bounds[negative[2]].z - ray.o.z) * inv.z;
+		float tzMax = (bounds[1 - negative[2]].z - ray.o.z) * inv.z;
+		if (txMin > tzMax || tzMin > txMax)
+			return false;
+		if (tzMin > txMin)
+			txMin = tzMin;
+		if (tzMax < tMax)
+			txMax = tzMax;
+
+		return (txMin < ray.tMax) && (txMax > 0);
+	}
+
+
 	typedef Bounds2<float> Bounds2f;
 	typedef Bounds2<int>   Bounds2i;
 	typedef Bounds3<float> Bounds3f;

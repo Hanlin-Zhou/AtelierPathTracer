@@ -87,6 +87,14 @@ namespace Math {
 			return std::sqrt(x * x + y * y);
 		}
 
+		template <typename U>
+		explicit Vec2(const Vec2<U>& p) : x((U)p.x), y((U)p.y) {};
+
+		template <typename U>
+		explicit operator Vec2<U>() const {
+			return Vec2<U>(x, y);
+		}
+
 		// Member
 		T x;
 		T y;
@@ -185,6 +193,14 @@ namespace Math {
 			return std::sqrt(x * x + y * y + z * z);
 		};
 
+		template <typename U>
+		explicit Vec3(const Vec3<U>& p) : x((U)p.x), y((U)p.y), z((U)p.z) {};
+
+		template <typename U>
+		explicit operator Vec3<U>() const {
+			return Vec3<U>(x, y, z);
+		}
+
 		// Member
 		T x;
 		T y;
@@ -232,6 +248,7 @@ namespace Math {
 	Vec3<T> Normalize(const Vec3<T>& v) {
 		return v / v.Norm();
 	}
+
 
 	typedef Vec2<double>   Vec2d;
 	typedef Vec2<float> Vec2f;

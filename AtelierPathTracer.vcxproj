@@ -223,14 +223,18 @@
     <ClCompile Include="src\PathTracer\Media\Medium.cpp" />
     <ClCompile Include="src\PathTracer\Ray\Ray.cpp" />
     <ClCompile Include="src\PathTracer\Ray\RayDifferential.cpp" />
+    <ClCompile Include="src\PathTracer\Sampler\GlobalSampler.cpp" />
+    <ClCompile Include="src\PathTracer\Sampler\PixelSampler.cpp" />
     <ClCompile Include="src\PathTracer\Sampler\Sampler.cpp" />
     <ClCompile Include="src\PathTracer\Scene\Scene.cpp" />
     <ClCompile Include="src\PathTracer\Shape\Shape.cpp" />
     <ClCompile Include="src\PathTracer\Shape\Triangle.cpp" />
     <ClCompile Include="src\PathTracer\Shape\TriangleMesh.cpp" />
+    <ClCompile Include="src\PathTracer\Spectrum\CoefficientSpectrum.cpp" />
     <ClCompile Include="src\UI\UIFileMenu.cpp" />
     <ClCompile Include="src\UI\UIHandleInput.cpp" />
     <ClCompile Include="src\Utility\OutputDebug.cpp" />
+    <ClCompile Include="src\Utility\RNG.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\DirectX12\d3d12.h" />
@@ -277,6 +281,7 @@
     <ClInclude Include="src\PathTracer\Acceleration\Primitive.hpp" />
     <ClInclude Include="src\PathTracer\Acceleration\SceneAggregate.hpp" />
     <ClInclude Include="src\PathTracer\Camera\Camera.hpp" />
+    <ClInclude Include="src\PathTracer\Camera\CameraSample.hpp" />
     <ClInclude Include="src\PathTracer\Camera\CameraType.hpp" />
     <ClInclude Include="src\PathTracer\Camera\Film.hpp" />
     <ClInclude Include="src\PathTracer\Camera\PerspectiveCamera.hpp" />
@@ -296,14 +301,18 @@
     <ClInclude Include="src\PathTracer\Media\Medium.hpp" />
     <ClInclude Include="src\PathTracer\Ray\Ray.hpp" />
     <ClInclude Include="src\PathTracer\Ray\RayDifferential.hpp" />
+    <ClInclude Include="src\PathTracer\Sampler\GlobalSampler.hpp" />
+    <ClInclude Include="src\PathTracer\Sampler\PixelSampler.hpp" />
     <ClInclude Include="src\PathTracer\Sampler\Sampler.hpp" />
     <ClInclude Include="src\PathTracer\Scene\Scene.hpp" />
     <ClInclude Include="src\PathTracer\Shape\Shape.hpp" />
     <ClInclude Include="src\PathTracer\Shape\Triangle.hpp" />
     <ClInclude Include="src\PathTracer\Shape\TriangleMesh.hpp" />
+    <ClInclude Include="src\PathTracer\Spectrum\CoefficientSpectrum.hpp" />
     <ClInclude Include="src\UI\UIFileMenu.hpp" />
     <ClInclude Include="src\UI\UIHandleInput.hpp" />
     <ClInclude Include="src\Utility\OutputDebug.hpp" />
+    <ClInclude Include="src\Utility\RNG.hpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Shader\PixelShader.hlsl">

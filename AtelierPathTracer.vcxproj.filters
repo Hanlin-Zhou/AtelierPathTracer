@@ -123,6 +123,12 @@
     <Filter Include="Source Files\PathTracer\Sampler">
       <UniqueIdentifier>{e933405d-a8fc-41a8-9af8-1207b812b508}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\PathTracer\Spectrum">
+      <UniqueIdentifier>{f9badcfc-6396-45c0-89d7-9a2a507c8cae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathTracer\Spectrum">
+      <UniqueIdentifier>{c918da2f-4fc3-40ab-916f-206f0be135ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -304,6 +310,18 @@
     </ClCompile>
     <ClCompile Include="src\PathTracer\Sampler\Sampler.cpp">
       <Filter>Source Files\PathTracer\Sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Sampler\PixelSampler.cpp">
+      <Filter>Source Files\PathTracer\Sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\RNG.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Sampler\GlobalSampler.cpp">
+      <Filter>Source Files\PathTracer\Sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTracer\Spectrum\CoefficientSpectrum.cpp">
+      <Filter>Source Files\PathTracer\Spectrum</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -519,6 +537,21 @@
     </ClInclude>
     <ClInclude Include="src\PathTracer\Sampler\Sampler.hpp">
       <Filter>Header Files\PathTracer\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Camera\CameraSample.hpp">
+      <Filter>Header Files\PathTracer\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Sampler\PixelSampler.hpp">
+      <Filter>Header Files\PathTracer\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\RNG.hpp">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Sampler\GlobalSampler.hpp">
+      <Filter>Header Files\PathTracer\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Spectrum\CoefficientSpectrum.hpp">
+      <Filter>Header Files\PathTracer\Spectrum</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
