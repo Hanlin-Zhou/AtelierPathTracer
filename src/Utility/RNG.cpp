@@ -22,4 +22,8 @@ namespace APT {
                 return r % b;
         }
 	}
+    float RNG::UniformFloat()
+    {
+        return 0.0f;
+    }
 }

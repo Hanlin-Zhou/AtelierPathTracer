@@ -10,6 +10,9 @@ namespace APT {
 		Mesh(const Transform& ObjectToWorld, int numTriangle, std::vector<unsigned int> vertexIndices, int numVertices,
 			std::vector<Vec3f> vertexPoints, std::vector<Vec3f> tangent, std::vector<Vec3f> normal, std::vector<Vec2f> uv);
 
+		/*virtual Bounds3f WorldBound() const;
+		virtual bool Intersect(const Ray& r, SurfaceInteraction*) const;
+		virtual bool IntersectP(const Ray& r) const;*/
 
 		std::unique_ptr<TriangleMesh> mMesh;
 		std::unique_ptr<DX::VertexBufferView> mVertexView;

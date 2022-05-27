@@ -163,7 +163,7 @@ namespace Math {
 		return true;
 	}
 
-	template<typename T>
+	/*template<typename T>
 	inline bool Bounds3<T>::IntersectP(const APT::Ray& ray, const Vec3f& inv, const int negative[3]) const
 	{
 		const Bounds3f& bounds = *this;
@@ -186,7 +186,7 @@ namespace Math {
 			txMax = tzMax;
 
 		return (txMin < ray.tMax) && (txMax > 0);
-	}
+	}*/
 
 
 	typedef Bounds2<float> Bounds2f;

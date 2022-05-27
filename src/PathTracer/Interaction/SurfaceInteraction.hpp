@@ -8,7 +8,7 @@ namespace APT {
 		SurfaceInteraction(); 
 
 		// Member
-		Vec2f mUV;
+		/*Vec2f mUV;
 		Vec3f mdPdU, mdPdV;
 		Vec3f mdNdU, mdNdU;
 		const Shape* shape = nullptr;
@@ -18,6 +18,6 @@ namespace APT {
 			Vec3f mdNdU, mdNdU;
 		}mShading;
 
-		const Primitive* primitive = nullptr;
+		const Primitive* primitive = nullptr;*/
 	};
 }

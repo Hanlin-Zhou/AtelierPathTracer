@@ -10,6 +10,7 @@ namespace APT {
 		void SetSequence(unsigned long sequence);
 		unsigned int UniformUInt32();
 		unsigned int UniformUInt32(unsigned int b);
+		float UniformFloat();
 
 	private:
 

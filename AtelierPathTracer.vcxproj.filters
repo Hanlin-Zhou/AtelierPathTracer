@@ -323,6 +323,9 @@
     <ClCompile Include="src\PathTracer\Spectrum\CoefficientSpectrum.cpp">
       <Filter>Source Files\PathTracer\Spectrum</Filter>
     </ClCompile>
+    <ClCompile Include="src\PathTracer\Spectrum\SampledSpectrum.cpp">
+      <Filter>Source Files\PathTracer\Spectrum</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Application.hpp">
@@ -551,6 +554,9 @@
       <Filter>Header Files\PathTracer\Sampler</Filter>
     </ClInclude>
     <ClInclude Include="src\PathTracer\Spectrum\CoefficientSpectrum.hpp">
+      <Filter>Header Files\PathTracer\Spectrum</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Spectrum\SampledSpectrum.hpp">
       <Filter>Header Files\PathTracer\Spectrum</Filter>
     </ClInclude>
   </ItemGroup>
