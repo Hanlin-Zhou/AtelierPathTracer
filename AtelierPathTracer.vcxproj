@@ -310,6 +310,7 @@
     <ClInclude Include="src\PathTracer\Shape\Triangle.hpp" />
     <ClInclude Include="src\PathTracer\Shape\TriangleMesh.hpp" />
     <ClInclude Include="src\PathTracer\Spectrum\CoefficientSpectrum.hpp" />
+    <ClInclude Include="src\PathTracer\Spectrum\RGBSpectrum.hpp" />
     <ClInclude Include="src\PathTracer\Spectrum\SampledSpectrum.hpp" />
     <ClInclude Include="src\UI\UIFileMenu.hpp" />
     <ClInclude Include="src\UI\UIHandleInput.hpp" />

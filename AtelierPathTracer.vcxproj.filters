@@ -559,6 +559,9 @@
     <ClInclude Include="src\PathTracer\Spectrum\SampledSpectrum.hpp">
       <Filter>Header Files\PathTracer\Spectrum</Filter>
     </ClInclude>
+    <ClInclude Include="src\PathTracer\Spectrum\RGBSpectrum.hpp">
+      <Filter>Header Files\PathTracer\Spectrum</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Shader\VertexShader.hlsl">

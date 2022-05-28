@@ -1,5 +1,7 @@
 #pragma once
 #include <limits>
+#include <cmath>
+#include <PathTracer/GeometryMath/MathHelper.hpp>
 
 namespace APT {
 	template <int nSamples> class CoefficientSpectrum {
@@ -161,12 +163,16 @@ namespace APT {
 			return result;
 		}
 
-		/*CoefficientSpectrum Clamp(Float low = 0, Float high = std::numeric_limits<float>::max()) const {
+		friend inline CoefficientSpectrum operator*(float a, const CoefficientSpectrum& s) {
+			return s * a;
+		}
+
+		CoefficientSpectrum Clamp(float low = 0, float high = std::numeric_limits<float>::max()) const {
 			CoefficientSpectrum result;
 			for (int i = 0; i < nSamples; ++i)
-				result.c[i] = ::Clamp(c[i], low, high);
+				result.c[i] = Math::Clamp(c[i], low, high);
 			return result;
-		}*/
+		}
 
 		static const int Sample = nSamples;
 		float& operator[](int i) {
