@@ -35,6 +35,40 @@ namespace APT {
 		return mInv;
 	}
 
+	Vec3f Transform::TransformPoint(const Vec3f& p) const
+	{
+		float xp = m.m[0][0] * p.x + m.m[0][1] * p.y + m.m[0][2] * p.z + m.m[0][3];
+		float yp = m.m[1][0] * p.x + m.m[1][1] * p.y + m.m[1][2] * p.z + m.m[1][3];
+		float zp = m.m[2][0] * p.x + m.m[2][1] * p.y + m.m[2][2] * p.z + m.m[2][3];
+		float wp = m.m[3][0] * p.x + m.m[3][1] * p.y + m.m[3][2] * p.z + m.m[3][3];
+		if (wp == 1) 
+			return Vec3f(xp, yp, zp);
+		else         
+			return Vec3f(xp, yp, zp) / wp;
+	}
+
+	Vec3f Transform::TransformVector(const Vec3f& v) const
+	{
+		return Vec3f(m.m[0][0] * v.x + m.m[0][1] * v.y + m.m[0][2] * v.z,
+			m.m[1][0] * v.x + m.m[1][1] * v.y + m.m[1][2] * v.z,
+			m.m[2][0] * v.x + m.m[2][1] * v.y + m.m[2][2] * v.z);
+	}
+
+	Vec3f Transform::TransformNormal(const Vec3f& n) const
+	{
+		return Vec3f(mInv.m[0][0] * n.x + mInv.m[1][0] * n.y + mInv.m[2][0] * n.z,
+			mInv.m[0][1] * n.x + mInv.m[1][1] * n.y + mInv.m[2][1] * n.z,
+			mInv.m[0][2] * n.x + mInv.m[1][2] * n.y + mInv.m[2][2] * n.z);
+	}
+
+	bool Transform::SwapsHandedness() const {
+		float det =
+			m.m[0][0] * (m.m[1][1] * m.m[2][2] - m.m[1][2] * m.m[2][1]) -
+			m.m[0][1] * (m.m[1][0] * m.m[2][2] - m.m[1][2] * m.m[2][0]) +
+			m.m[0][2] * (m.m[1][0] * m.m[2][1] - m.m[1][1] * m.m[2][0]);
+		return det < 0;
+	}
+
 	Transform Transform::Translate(const Vec3f& delta)
 	{
 		Mat4 m(1, 0, 0, delta.x,

@@ -326,6 +326,9 @@
     <ClCompile Include="src\PathTracer\Spectrum\SampledSpectrum.cpp">
       <Filter>Source Files\PathTracer\Spectrum</Filter>
     </ClCompile>
+    <ClCompile Include="src\PathTracer\Acceleration\bvh.cpp">
+      <Filter>Source Files\PathTracer\Acceleration</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Application.hpp">
@@ -561,6 +564,12 @@
     </ClInclude>
     <ClInclude Include="src\PathTracer\Spectrum\RGBSpectrum.hpp">
       <Filter>Header Files\PathTracer\Spectrum</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Acceleration\bvh.hpp">
+      <Filter>Header Files\PathTracer\Acceleration</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathTracer\Acceleration\Aggregate.hpp">
+      <Filter>Header Files\PathTracer\Acceleration</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

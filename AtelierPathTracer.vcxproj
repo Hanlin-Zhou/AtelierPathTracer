@@ -201,6 +201,7 @@
     <ClCompile Include="src\GraphicAPI\SwapChain.cpp" />
     <ClCompile Include="src\GraphicAPI\VertexBufferView.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\PathTracer\Acceleration\bvh.cpp" />
     <ClCompile Include="src\PathTracer\Acceleration\GeometricPrimitive.cpp" />
     <ClCompile Include="src\PathTracer\Acceleration\Mesh.cpp" />
     <ClCompile Include="src\PathTracer\Acceleration\Model.cpp" />
@@ -276,6 +277,8 @@
     <ClInclude Include="src\GraphicAPI\SwapChain.hpp" />
     <ClInclude Include="src\GraphicAPI\TopologyType.hpp" />
     <ClInclude Include="src\GraphicAPI\VertexBufferView.hpp" />
+    <ClInclude Include="src\PathTracer\Acceleration\Aggregate.hpp" />
+    <ClInclude Include="src\PathTracer\Acceleration\bvh.hpp" />
     <ClInclude Include="src\PathTracer\Acceleration\GeometricPrimitive.hpp" />
     <ClInclude Include="src\PathTracer\Acceleration\Mesh.hpp" />
     <ClInclude Include="src\PathTracer\Acceleration\Model.hpp" />

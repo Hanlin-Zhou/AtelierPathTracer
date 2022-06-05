@@ -1,5 +1,5 @@
 #pragma once
-
+#include<limits>
 namespace Math {
 	// constants
 	/*float PI;
@@ -9,6 +9,12 @@ namespace Math {
 
 	float ToRadian(float degree);
 	float ToDegree(float radian);
+
+	static constexpr float MachineEpsilon = std::numeric_limits<float>::epsilon() * 0.5;
+
+	inline constexpr float gamma(int n) {
+		return (n * MachineEpsilon) / (1 - n * MachineEpsilon);
+	}
 
 	float Lerp(float t, float v1, float v2);
 	template <typename T, typename U, typename V>

@@ -244,7 +244,7 @@ namespace APT {
 				Vec3f relativePos = camPosition - camTarget;
 				Transform rotation = Transform::RotateAroundY(hor_r);
 				rotation *= Transform::RotateAround(rightDirection, ver_r);
-				Vec3f newPos = camTarget + rotation(relativePos);
+				Vec3f newPos = camTarget + rotation.TransformVector(relativePos);
 				mCamera->SetPosition(newPos);
 			}
 

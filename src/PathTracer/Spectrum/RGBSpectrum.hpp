@@ -3,9 +3,12 @@
 
 namespace APT {
 	float InterpolateSpectrumSamples(const float* lambda, const float* vals, int n, float l) {
-		if (l <= lambda[0])     return vals[0];
-		if (l >= lambda[n - 1]) return vals[n - 1];
-		int offset = Math::FindInterval(n, [&](int index) { return lambda[index] <= l; });
+		if (l <= lambda[0])     
+			return vals[0];
+		if (l >= lambda[n - 1]) 
+			return vals[n - 1];
+		int offset = Math::FindInterval(n, [&](int index) 
+			{ return lambda[index] <= l; });
 		float t = (l - lambda[offset]) / (lambda[offset + 1] - lambda[offset]);
 		return Math::Lerp(t, vals[offset], vals[offset + 1]);
 	}

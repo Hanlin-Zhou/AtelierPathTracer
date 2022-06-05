@@ -137,7 +137,50 @@ namespace Math {
 			return o;
 		}
 
-		inline bool IntersectP(const APT::Ray& ray, float* hitt0 = nullptr, float* hitt1 = nullptr) const;
+		/*inline bool IntersectP(const APT::Ray& ray, float* hitt0 = nullptr, float* hitt1 = nullptr) const;*/
+
+		template <typename T>
+		inline bool IntersectP(const APT::Ray& ray, float* hitt0 = nullptr, float* hitt1 = nullptr) const {
+			float t0 = 0.0, t1 = ray.mMaxTime;
+			for (int i = 0; i < 3; i++)
+			{
+				float inv = 1.0 / ray.d[i];
+				float tNear = (pMin[i] - ray.o[i]) * inv;
+				float tFar = (pMax[i] - ray.o[i]) * inv;
+				if (tNear > tFar) std::swap(tNear, tFar);
+				t0 = tNear > t0 ? tNear : t0;
+				t1 = tFar < t1 ? tFar : t1;
+				if (t0 > t1) return false;
+			}
+			if (hitt0) *hitt0 = t0;
+			if (hitt1) *hitt1 = t1;
+			return true;
+		}
+
+		template<typename T>
+		inline bool IntersectP(const APT::Ray& ray, const Vec3f& inv, const int negative[3]) const
+		{
+			const Bounds3<float>& bounds = *this;
+			float txMin = (bounds[negative[0]].x - ray.o.x) * inv.x;
+			float txMax = (bounds[1 - negative[0]].x - ray.o.x) * inv.x;
+			float tyMin = (bounds[negative[1]].y - ray.o.y) * inv.y;
+			float tyMax = (bounds[1 - negative[1]].y - ray.o.y) * inv.y;
+			if (txMin > tyMax || tyMin > txMax)
+				return false;
+			if (tyMin > pMin) pMin = tyMin;
+			if (tyMax < pMax) pMax = tyMax;
+
+			float tzMin = (bounds[negative[2]].z - ray.o.z) * inv.z;
+			float tzMax = (bounds[1 - negative[2]].z - ray.o.z) * inv.z;
+			if (txMin > tzMax || tzMin > txMax)
+				return false;
+			if (tzMin > txMin)
+				txMin = tzMin;
+			if (tzMax < pMax)
+				txMax = tzMax;
+
+			return (txMin < ray.mMaxTime) && (txMax > 0);
+		}
 
 		inline bool IntersectP(const APT::Ray& ray, const Vec3f& inv, const int negative[3]) const;
 		// Members
@@ -145,7 +188,7 @@ namespace Math {
 		Vec3<T> pMax;
 	};
 	
-	template <typename T>
+	/*template <typename T>
 	inline bool Bounds3<T>::IntersectP(const APT::Ray& ray, float* hitt0, float* hitt1) const {
 		float t0 = 0.0, t1 = ray.mMaxTime;
 		for (int i = 0; i < 3; i++)
@@ -161,7 +204,7 @@ namespace Math {
 		if (hitt0) *hitt0 = t0;
 		if (hitt1) *hitt1 = t1;
 		return true;
-	}
+	}*/
 
 	/*template<typename T>
 	inline bool Bounds3<T>::IntersectP(const APT::Ray& ray, const Vec3f& inv, const int negative[3]) const
@@ -173,8 +216,8 @@ namespace Math {
 		float tyMax = (bounds[1 - negative[1]].y - ray.o.y) * inv.y;
 		if (txMin > tyMax || tyMin > txMax)
 			return false;
-		if (tyMin > tMin) tMin = tyMin;
-		if (tyMax < tMax) tMax = tyMax;
+		if (tyMin > pMin) pMin = tyMin;
+		if (tyMax < pMax) pMax = tyMax;
 
 		float tzMin = (bounds[negative[2]].z - ray.o.z) * inv.z;
 		float tzMax = (bounds[1 - negative[2]].z - ray.o.z) * inv.z;
@@ -182,11 +225,27 @@ namespace Math {
 			return false;
 		if (tzMin > txMin)
 			txMin = tzMin;
-		if (tzMax < tMax)
+		if (tzMax < pMax)
 			txMax = tzMax;
 
-		return (txMin < ray.tMax) && (txMax > 0);
+		return (txMin < ray.pMax) && (txMax > 0);
 	}*/
+
+	template <typename T> Bounds3 <T>
+	Union(const Bounds3<T>& b, const Vec3<T>& p) {
+		return Bounds3<T>(Vec3<T>(std::min(b.pMin.x, p.x), std::min(b.pMin.y, p.y), std::min(b.pMin.z, p.z)),
+			Vec3<T>(std::max(b.pMax.x, p.x), std::max(b.pMax.y, p.y), std::max(b.pMax.z, p.z)));
+	}
+
+	template <typename T> Bounds3<T>
+	Union(const Bounds3<T>& b1, const Bounds3<T>& b2) {
+		return Bounds3<T>(Vec3<T>(std::min(b1.pMin.x, b2.pMin.x),
+			std::min(b1.pMin.y, b2.pMin.y),
+			std::min(b1.pMin.z, b2.pMin.z)),
+			Vec3<T>(std::max(b1.pMax.x, b2.pMax.x),
+				std::max(b1.pMax.y, b2.pMax.y),
+				std::max(b1.pMax.z, b2.pMax.z)));
+	}
 
 
 	typedef Bounds2<float> Bounds2f;

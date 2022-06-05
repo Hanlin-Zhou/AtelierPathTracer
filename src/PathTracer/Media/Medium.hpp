@@ -6,4 +6,6 @@ namespace APT {
 		Medium();
 
 	};
+
+	struct MediumInterface {};
 }

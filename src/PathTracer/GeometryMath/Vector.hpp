@@ -201,11 +201,46 @@ namespace Math {
 			return Vec3<U>(x, y, z);
 		}
 
+		float LengthSquared() const {
+			return x * x + y * y + z * z;
+		}
+
+		float Length() const {
+			return std::sqrt(LengthSquared());
+		}
+
 		// Member
 		T x;
 		T y;
 		T z;
 	};
+
+	template <typename T>
+	Vec3<T> Permute(const Vec3<T>& p, int x, int y, int z) {
+		return Vec3<T>(p[x], p[y], p[z]);
+	}
+
+	template <typename T>
+	int MaxDimension(const Vec3<T>& v) {
+		return (v.x > v.y) ? ((v.x > v.z) ? 0 : 2) :
+			((v.y > v.z) ? 1 : 2);
+	}
+
+	template <typename T>
+	inline void CoordinateSystem(const Vec3<T>& v1, Vec3<T>* v2, Vec3<T>* v3) {
+		if (std::abs(v1.x) > std::abs(v1.y))
+			*v2 = Vec3<T>(-v1.z, 0, v1.x) /
+			std::sqrt(v1.x * v1.x + v1.z * v1.z);
+		else
+			*v2 = Vec3<T>(0, v1.z, -v1.y) /
+			std::sqrt(v1.y * v1.y + v1.z * v1.z);
+		*v3 = Cross(v1, *v2);
+	}
+
+	template <typename T> 
+	inline Vec3<T> Faceforward(const Vec3<T>& n, const Vec3<T>& v) {
+		return (Dot(n, v) < 0.f) ? -n : n;
+	}
 
 	template <typename T>
 	Vec2<T> operator*(T s, const Vec2<T>& v) {
@@ -224,7 +259,7 @@ namespace Math {
 
 	template <typename T>
 	Vec3<T> Abs(const Vec3<T>& v) {
-		return Vec2<T>(std::abs(v.x), std::abs(v.y), std::abs(v.z));
+		return Vec3<T>(std::abs(v.x), std::abs(v.y), std::abs(v.z));
 	}
 
 	template <typename T>
